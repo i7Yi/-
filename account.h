@@ -6,9 +6,10 @@
 struct User {
     std::string username;
     std::string password;
+    User* next;
 };
 
 void registerUser();
-bool loginUser();
-void changePassword();
+int loginUser();
+int changePassword();
 
