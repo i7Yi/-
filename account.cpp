@@ -1,7 +1,9 @@
 #include "account.h"
 #include "tools.h"
 #include "common.h"
+#define maxLength 5//CDK最大长度
 
+extern User player;
 // 注册函数
 void registerUser() {
     std::fstream file("users.txt", std::ios::in | std::ios::out | std::ios::app);
@@ -35,7 +37,7 @@ void registerUser() {
         // 将写入指针定位到文件开头，以便在文件开头写入新的用户名和密码
         file.seekp(0, std::ios::beg);
 
-        file << newUser.username << " " << newUser.password << std::endl;
+        file << newUser.username << " " << newUser.password << " " << "0"<<std::endl;
         std::cout << "注册成功！" << std::endl;
     }
 
@@ -44,7 +46,8 @@ void registerUser() {
 
 // 登录函数
 int loginUser() {
-    std::ifstream file("users.txt",std::ios::in);
+    system("cls");
+    std::ifstream file("users.txt", std::ios::in);
     if (!file.is_open()) {
         std::cerr << "无法打开文件 users.txt" << std::endl;
         throw(-114514);
@@ -56,13 +59,12 @@ int loginUser() {
     {
         throw(-114514);
     }
-    std::string username, password;
     std::cout << "请输入用户名: ";
-    std::cin >> username;
+    std::cin >> player.username;
     User currentUser;
     int judge_find = -1;
-    while (file >> currentUser.username >> currentUser.password) {
-        if (currentUser.username == username)
+    while (file >> currentUser.username >> currentUser.password >> currentUser.vipjudge) {
+        if (currentUser.username == player.username)
         {
             judge_find = 1;
             break;
@@ -71,8 +73,8 @@ int loginUser() {
     if (judge_find == 1)
     {
         std::cout << "请输入密码: ";
-        std::cin >> password;
-        if (currentUser.password == password) {
+        std::cin >> player.password;
+        if (currentUser.password == player.password) {
             system("cls");
             std::cout << "用户" << " " << currentUser.username << " " << "登录成功！" << std::endl;
             file.close();
@@ -114,30 +116,29 @@ int changePassword() {
         std::cerr << "无法打开文件 users.txt" << std::endl;
         exit(EXIT_FAILURE);
     }
-    
+
     User* head = nullptr;
-    std::string username, password, newPassword;
     int judge_find = -1;
     std::cout << "请输入用户名: ";
-    std::cin >> username;
+    std::cin >> player.username;
 
     User currentUser;
-    while (file >> currentUser.username >> currentUser.password) {
-        if (username == currentUser.username) {
+    while (file >> currentUser.username >> currentUser.password>>currentUser.vipjudge) {
+        if (player.username == currentUser.username) {
             judge_find = 1;
             std::cout << "请输入旧密码: ";
-            std::cin >> password;
-            if (currentUser.password != password) {
+            std::cin >> player.password;
+            if (currentUser.password != player.password) {
                 std::cout << "密码错误！" << std::endl;
                 file.close();
                 return 1;
             }
 
             std::cout << "请输入新密码: ";
-            std::cin >> newPassword;
-            currentUser.password = newPassword;
+            std::cin >> player.password;
+            currentUser.password = player.password;
         }
-        User* newUser = new User{currentUser.username, currentUser.password, nullptr};
+        User* newUser = new User{ currentUser.username, currentUser.password, currentUser.vipjudge,nullptr };
         newUser->next = head;
         head = newUser;
     }
@@ -159,7 +160,7 @@ int changePassword() {
 
     User* current = head;
     while (current != nullptr) {
-        file_ << current->username << " " << current->password << std::endl;
+        file_ << current->username << " " << current->password << " " << current->vipjudge << std::endl;
         User* temp = current;
         current = current->next;
         delete temp; // 释放链表节点的内存
@@ -170,3 +171,53 @@ int changePassword() {
     Sleep(1000); // 暂停1秒
     return 2;
 }
+//after_enter_interface
+int ui_after_enter()
+{
+    system("cls");
+    if (player.vipjudge == 1)
+    {
+        std::cout << "尊贵的VIP ";
+    }
+    else
+    {
+        std::cout << "普通用户 ";
+    }
+    std::cout << player.username << " 登陆成功！" << std::endl;
+    std::cout << "1.开始游戏\n2.CDK兑换\n";
+    int judge_after_enter = -1;
+    while(1)
+    {
+        std::cin >> judge_after_enter;
+        switch (judge_after_enter)
+        {
+        case 1:
+            return 1;
+        case 2:
+            return 2;
+        default:
+            std::cout << "无效指令！请重新输入";
+        }
+    }
+}
+//VIP-CDK
+//int cdk_dh()
+//{
+//    system("cls");
+//    std:: string cdk_input;
+//    while (1)
+//    {
+//        try {
+//            std::cout << "请输入5位CDK:";
+//            std::cin >> cdk_input;
+//            if (cdk_input.length() > maxLength) {
+//                throw -1("String length exceeds maximum allowed length.");
+//            }
+//        }
+//        catch(-1){
+//
+//        }
+//    }
+//    
+//
+//}

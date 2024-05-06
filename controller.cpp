@@ -8,7 +8,10 @@
 #include "map.h"
 #include "snake.h"
 #include "food.h"
+#include "account.h"
 
+
+User player;
 void Controller::Start()//开始界面
 {
     SetWindowSize(55, 40);//设置窗口大小
@@ -25,8 +28,276 @@ void Controller::Start()//开始界面
     SetCursorPosition(13, 27);
     system("pause");
 }
-void Controller::enter()
+bool Controller::enter_interface()
 {
+    /*绘制登录界面*/
+    system("cls");
+    SetColor(11);
+    SetCursorPosition(10, 8);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    Sleep(30);
+    SetCursorPosition(9, 9);
+    std::cout << " ┃                 贪吃蛇                   ┃";
+    Sleep(30);
+    SetCursorPosition(9, 10);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 11);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 12);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 13);
+    std::cout << " ┃                  登录                    ┃";
+    Sleep(30);
+    SetCursorPosition(9, 14);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 15);
+    std::cout << " ┃                  注册                    ┃";
+    Sleep(30);
+    SetCursorPosition(9, 16);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 17);
+    std::cout << " ┃                修改密码                  ┃";
+    Sleep(30);
+    SetCursorPosition(9, 18);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 19);
+    std::cout << " ┃                查看排行                  ┃";
+    Sleep(30);
+    SetCursorPosition(9, 20);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 21);
+    std::cout << " ┃                  退出                    ┃";
+    Sleep(30);
+    SetCursorPosition(9, 22);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 23);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 24);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(10, 25);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+
+    Sleep(100);
+    SetCursorPosition(19, 13);
+    SetBackColor();
+    std::cout << "登录";
+    SetCursorPosition(19, 15);
+    SetColor(11);
+    std::cout << "注册";
+    SetCursorPosition(18, 17);
+    std::cout << "修改密码";
+    SetCursorPosition(18, 19);
+    std::cout << "查看排行";
+    SetCursorPosition(19, 21);
+    std::cout << "退出";
+    SetCursorPosition(0, 31);
+
+    /*选择部分*/
+    int ch;
+    int tmp_key = 1;
+    bool flag = false;
+    while ((ch = _getch())) {//改进
+        switch (ch) {
+        case 72://UP
+        {
+            if (tmp_key > 1) {
+                switch (tmp_key)
+                {
+                case 2:
+                {
+                    SetCursorPosition(19, 13);
+                    SetBackColor();
+                    std::cout << "登录";
+                    SetCursorPosition(19, 15);
+                    SetColor(11);
+                    std::cout << "注册";
+                    --tmp_key;
+                    break;
+                }
+                case 3:
+                {
+                    SetCursorPosition(19, 15);
+                    SetBackColor();
+                    std::cout << "注册";
+                    SetCursorPosition(18, 17);
+                    SetColor(11);
+                    std::cout << "修改密码";
+                    --tmp_key;
+                    break;
+                }
+                case 4:
+                {
+                    SetCursorPosition(18, 17);
+                    SetBackColor();
+                    std::cout << "修改密码";
+                    SetCursorPosition(18, 19);
+                    SetColor(11);
+                    std::cout << "查看排行";
+                    --tmp_key;
+                    break;
+                }
+                case 5:
+                {
+                    SetCursorPosition(18, 19);
+                    SetBackColor();
+                    std::cout << "查看排行";
+                    SetCursorPosition(19, 21);
+                    SetColor(11);
+                    std::cout << "退出";
+                    --tmp_key;
+                    break;
+                }
+                }
+            }
+        }
+        break;
+        case 80://DOWN
+        {
+            if (tmp_key < 5) {
+                switch (tmp_key) {
+                case 1:
+                    SetCursorPosition(19, 15);
+                    SetBackColor();
+                    std::cout << "注册";
+                    SetCursorPosition(19, 13);
+                    SetColor(11);
+                    std::cout << "登录";
+                    ++tmp_key;
+                    break;
+
+                case 2:
+                    SetCursorPosition(18, 17);
+                    SetBackColor();
+                    std::cout << "修改密码";
+                    SetCursorPosition(19, 15);
+                    SetColor(11);
+                    std::cout << "注册";
+                    ++tmp_key;
+                    break;
+
+                case 3:
+                    SetCursorPosition(18, 19);
+                    SetBackColor();
+                    std::cout << "查看排行";
+                    SetCursorPosition(18, 17);
+                    SetColor(11);
+                    std::cout << "修改密码";
+                    ++tmp_key;
+                    break;
+
+                case 4:
+                    SetCursorPosition(19, 21);
+                    SetBackColor();
+                    std::cout << "退出";
+                    SetCursorPosition(18, 19);
+                    SetColor(11);
+                    std::cout << "查看排行";
+                    ++tmp_key;
+                    break;
+                }
+
+            }
+        }
+        break;
+        case 13://Enter
+        {
+            flag = true;
+            break;
+        }
+        }
+
+        if (flag)
+        {
+            break;
+        }
+
+    }
+
+
+    if (tmp_key == 1)
+    {
+        system("cls");
+        int judge = -1;
+        try {
+            while (true)
+            {
+                judge = loginUser();
+                if (judge == 0)
+                {
+                    return true;
+                }
+                else if (judge == 1)
+                {
+                    continue;
+                }
+                else if (judge == 2)
+                {
+                    return false;
+                }
+            }
+        }
+        catch (int error) {
+            if (error == -114514)
+            {
+                std::cout << "没有用户！请先注册！" << std::endl;
+                Sleep(1000);
+                return false;
+            }
+        }
+
+    }
+    else if (tmp_key == 2)
+    {
+        registerUser();
+    }
+    else if (tmp_key == 3)
+    {
+        system("cls");
+        int judge = -1;
+        try {
+            while (true)
+            {
+                judge = changePassword();
+                if (judge == 0)
+                {
+                    return true;
+                }
+                else if (judge == 1)
+                {
+                    continue;
+                }
+                else if (judge == 2)
+                {
+                    return false;
+                }
+            }
+        }
+        catch (int error) {
+            if (error == -114514)
+            {
+                std::cout << "没有用户！请先注册！" << std::endl;
+                Sleep(1000);
+                return false;
+            }
+        }
+    }
+    else if (tmp_key == 5)
+    {
+        system("cls");
+        std::cout << "Bye!";
+        Sleep(1000);
+        exit(0);
+    }
 
 }
 void Controller::Select()//选择界面
@@ -223,6 +494,8 @@ int Controller::PlayGame()//游戏二级循环
 {
     /*初始化蛇和食物*/
     Snake* csnake = new Snake();
+    /*判断是否为vip蛇*/
+    csnake = new SnakeVIP();
     Food* cfood = new Food();
     SetColor(6);
     csnake->InitSnake();
@@ -345,7 +618,7 @@ int Controller::Menu()//选择菜单
     int ch;
     int tmp_key = 1;
     bool flag = false;
-    while ((ch = _getch()))
+    while ((ch = _getch()))//查找
     {
         switch (ch)
         {
@@ -439,6 +712,31 @@ int Controller::Menu()//选择菜单
 void Controller::Game()//游戏一级循环
 {
     Start();//开始界面
+    while (true)
+    {
+        int judge_enter = enter_interface();
+        if (judge_enter)
+        {
+            break;
+        }
+        else
+        {
+            continue;
+        }
+
+    }
+      int judge_after_enter = ui_after_enter();
+      if (judge_after_enter == 1)
+      {
+
+      }
+      else if (judge_after_enter == 2)
+      {
+            /**********/
+            //CDK兑换接口
+      }
+
+
     while (true)//游戏可视为一个死循环，直到退出游戏时循环结束
     {
         Select();//选择界面

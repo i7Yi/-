@@ -1,6 +1,6 @@
 #ifndef FOOD_H
 #define FOOD_H
-
+#include "common.h"
 #include "snake.h"
 class Snake;
 class Food

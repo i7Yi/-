@@ -1,13 +1,12 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-
 class Controller
 {
 public:
     Controller() : speed(200), key(1), score(0) {}
+    bool enter_interface();
     void Start();
-    void enter();
     void Select();
     void DrawGame();
     int PlayGame();
@@ -21,4 +20,4 @@ private:
     int key;
     int score;
 };
-#endif // CONTROLLER_H
+#endif

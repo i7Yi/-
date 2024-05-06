@@ -130,26 +130,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\GreedySnake-master\controller.cpp" />
-    <ClCompile Include="..\..\GreedySnake-master\food.cpp" />
-    <ClCompile Include="..\..\GreedySnake-master\main.cpp" />
-    <ClCompile Include="..\..\GreedySnake-master\map.cpp" />
-    <ClCompile Include="..\..\GreedySnake-master\point.cpp" />
-    <ClCompile Include="..\..\GreedySnake-master\snake.cpp" />
-    <ClCompile Include="..\..\GreedySnake-master\startinterface.cpp" />
-    <ClCompile Include="..\..\GreedySnake-master\tools.cpp" />
     <ClCompile Include="account.cpp" />
+    <ClCompile Include="controller.cpp" />
+    <ClCompile Include="food.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="point.cpp" />
+    <ClCompile Include="snake.cpp" />
+    <ClCompile Include="startinterface.cpp" />
+    <ClCompile Include="tools.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\GreedySnake-master\controller.h" />
-    <ClInclude Include="..\..\GreedySnake-master\food.h" />
-    <ClInclude Include="..\..\GreedySnake-master\map.h" />
-    <ClInclude Include="..\..\GreedySnake-master\point.h" />
-    <ClInclude Include="..\..\GreedySnake-master\snake.h" />
-    <ClInclude Include="..\..\GreedySnake-master\startinterface.h" />
-    <ClInclude Include="..\..\GreedySnake-master\tools.h" />
     <ClInclude Include="account.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="controller.h" />
+    <ClInclude Include="food.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="point.h" />
+    <ClInclude Include="snake.h" />
+    <ClInclude Include="startinterface.h" />
+    <ClInclude Include="tools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

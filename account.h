@@ -6,10 +6,12 @@
 struct User {
     std::string username;
     std::string password;
+    bool vipjudge;
     User* next;
 };
 
 void registerUser();
 int loginUser();
 int changePassword();
-
+int ui_after_enter();
+int cdk_dh();

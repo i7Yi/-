@@ -1,23 +1,22 @@
 #ifndef STRATINTERFACE_H
 #define STARTINTERFACE_H
-#include <deque>
-#include <vector>
+#include "common.h"
 #include "point.h"
 
 class StartInterface
 {
 public:
     StartInterface() : speed(5) {
-        startsnake.emplace_back(Point(0,14));
-        startsnake.emplace_back(Point(1,14));
-        startsnake.emplace_back(Point(2,15));
-        startsnake.emplace_back(Point(3,16));
-        startsnake.emplace_back(Point(4,17));
-        startsnake.emplace_back(Point(5,18));
-        startsnake.emplace_back(Point(6,17));
-        startsnake.emplace_back(Point(7,16));
-        startsnake.emplace_back(Point(8,15));
-        startsnake.emplace_back(Point(9,14));
+        startsnake.emplace_back(Point(0, 14));
+        startsnake.emplace_back(Point(1, 14));
+        startsnake.emplace_back(Point(2, 15));
+        startsnake.emplace_back(Point(3, 16));
+        startsnake.emplace_back(Point(4, 17));
+        startsnake.emplace_back(Point(5, 18));
+        startsnake.emplace_back(Point(6, 17));
+        startsnake.emplace_back(Point(7, 16));
+        startsnake.emplace_back(Point(8, 15));
+        startsnake.emplace_back(Point(9, 14));
 
         textsnake.emplace_back(Point(-26, 14));//S
         textsnake.emplace_back(Point(-25, 14));
@@ -75,7 +74,7 @@ public:
         textsnake.emplace_back(Point(-1, 18));
         textsnake.emplace_back(Point(0, 14));
         textsnake.emplace_back(Point(0, 16));
-        textsnake.emplace_back(Point(0, 18));        
+        textsnake.emplace_back(Point(0, 18));
     }
     void PrintFirst();
     void PrintSecond();

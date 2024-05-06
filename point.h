@@ -10,8 +10,8 @@ public:
     void Clear();
     void ChangePosition(const int x, const int y);
     bool operator== (const Point& point) { return (point.x == this->x) && (point.y == this->y); }
-    int GetX(){ return this->x; }
-    int GetY(){ return this->y; }
+    int GetX() { return this->x; }
+    int GetY() { return this->y; }
 private:
     int x, y;
 };

@@ -9,8 +9,8 @@ void Food::DrawFood(Snake& csnake)//绘制食物
       同时每5颗食物就出现一颗限时食物*/
     while (true)
     {
-        int tmp_x = rand() % 29;
-        int tmp_y = rand() % 29;
+        int tmp_x = rand() % 38;
+        int tmp_y = rand() % 38;
         if (tmp_x < 2) tmp_x += 2;
         if (tmp_y < 2) tmp_y += 2;
         bool flag = false;
@@ -29,7 +29,7 @@ void Food::DrawFood(Snake& csnake)//绘制食物
         SetColor(13);
         std::cout << "★";
         ++cnt;
-        cnt %= 5;
+        cnt %= 3;
         if (cnt == 0)
         {
             DrawBigFood(csnake);
@@ -46,8 +46,8 @@ void Food::DrawBigFood(Snake& csnake)//绘制限时食物
     progress_bar = 42;
     while (true)
     {
-        int tmp_x = rand() % 29;
-        int tmp_y = rand() % 29;
+        int tmp_x = rand() % 38;
+        int tmp_y = rand() % 38;
         if (tmp_x < 2) tmp_x += 2;
         if (tmp_y < 2) tmp_y += 2;
         bool flag = false;

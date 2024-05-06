@@ -9,7 +9,7 @@ class Food;
 class Snake
 {
 public:
-    enum Direction {UP, DOWN, LEFT, RIGHT};
+    enum Direction { UP, DOWN, LEFT, RIGHT };
 
     Snake() {
         snake.emplace_back(14, 8);
@@ -18,16 +18,20 @@ public:
         direction = Direction::DOWN;
     }
     void InitSnake();
-    void Move();
+    virtual void Move();
     void NormalMove();
     bool OverEdge();
     bool HitItself();
     bool ChangeDirection();
     bool GetFood(const Food&);
     bool GetBigFood(Food&);
-private:
+protected:
     std::deque<Point> snake;
     Direction direction;
     friend class Food;//将Food类置为友元，以便访问其私有元素
+};
+class SnakeVIP :public Snake
+{
+    void Move();
 };
 #endif // SNAKE_H

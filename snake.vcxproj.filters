@@ -15,60 +15,60 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\GreedySnake-master\controller.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GreedySnake-master\food.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GreedySnake-master\main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GreedySnake-master\map.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GreedySnake-master\point.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GreedySnake-master\snake.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GreedySnake-master\startinterface.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\GreedySnake-master\tools.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="account.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="controller.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="point.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="snake.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="food.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="startinterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tools.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\GreedySnake-master\controller.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GreedySnake-master\food.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GreedySnake-master\map.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GreedySnake-master\point.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GreedySnake-master\snake.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GreedySnake-master\startinterface.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GreedySnake-master\tools.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="account.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="snake.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="startinterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="controller.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="food.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

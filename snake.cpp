@@ -124,6 +124,9 @@ bool Snake::GetBigFood(Food& cfood)
 {
     if (snake.back().GetX() == cfood.big_x && snake.back().GetY() == cfood.big_y)
     {
+        SetCursorPosition(cfood.big_x, cfood.big_y);
+        std::cout << "  ";//此处要弥补贪吃蛇少掉的一部分
+        std::cout << "\b\b●";
         cfood.big_flag = false;
         cfood.big_x = 0;
         cfood.big_y = 0;
@@ -133,4 +136,30 @@ bool Snake::GetBigFood(Food& cfood)
     }
     else
         return false;
+}
+
+int cnt = 1;
+void SnakeVIP::Move()//蛇增长
+{
+    switch (direction)
+    {
+    case Direction::UP:
+        snake.emplace_back(Point(snake.back().GetX(), snake.back().GetY() - 1));
+        break;
+    case Direction::DOWN:
+        snake.emplace_back(Point(snake.back().GetX(), snake.back().GetY() + 1));
+        break;
+    case Direction::LEFT:
+        snake.emplace_back(Point(snake.back().GetX() - 1, snake.back().GetY()));
+        break;
+    case Direction::RIGHT:
+        snake.emplace_back(Point(snake.back().GetX() + 1, snake.back().GetY()));
+        break;
+    default:
+        break;
+    }
+    cnt %= 10;
+    cnt++;
+    SetColor(cnt);
+    snake.back().PrintCircular();
 }
