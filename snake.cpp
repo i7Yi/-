@@ -43,8 +43,8 @@ void Snake::NormalMove()//蛇正常移动，头增长，尾缩短
 
 bool Snake::OverEdge()//超出边界
 {
-    return snake.back().GetX() < 38 &&
-        snake.back().GetY() < 38 &&
+    return snake.back().GetX() < 29 &&
+        snake.back().GetY() < 29 &&
         snake.back().GetX() > 1 &&
         snake.back().GetY() > 1;
 }

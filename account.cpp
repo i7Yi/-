@@ -47,6 +47,43 @@ void registerUser() {
 // 登录函数
 int loginUser() {
     system("cls");
+    SetColor(11);
+    SetCursorPosition(10, 8);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    Sleep(30);
+    SetCursorPosition(9, 9);
+    std::cout << " ┃                  登录                    ┃";
+    Sleep(30);
+    SetCursorPosition(9, 10);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 11);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 12);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 13);
+    std::cout << " ┃         用户名：                         ┃";
+    Sleep(30);
+    SetCursorPosition(9, 14);
+    std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
+    Sleep(30);
+    SetCursorPosition(9, 15);
+    std::cout << " ┃         密码：                            ┃";
+    Sleep(30);
+    SetCursorPosition(9, 16);
+    std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
+    Sleep(30);
+    SetCursorPosition(9, 17);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 18);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(10, 19);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+
     std::ifstream file("users.txt", std::ios::in);
     if (!file.is_open()) {
         std::cerr << "无法打开文件 users.txt" << std::endl;
@@ -59,7 +96,7 @@ int loginUser() {
     {
         throw(-114514);
     }
-    std::cout << "请输入用户名: ";
+    SetCursorPosition(18.5, 13);
     std::cin >> player.username;
     User currentUser;
     int judge_find = -1;
@@ -72,7 +109,7 @@ int loginUser() {
     }
     if (judge_find == 1)
     {
-        std::cout << "请输入密码: ";
+        SetCursorPosition(17.5, 15);
         std::cin >> player.password;
         if (currentUser.password == player.password) {
             system("cls");
