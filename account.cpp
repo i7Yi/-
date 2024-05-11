@@ -1,47 +1,79 @@
 #include "account.h"
 #include "tools.h"
 #include "common.h"
-#define maxLength 5//CDK最大长度
-
+#define maxLength_CDK 5//CDK最大长度
+#define maxLength_username 8//用户名最大长度
 extern User player;
 // 注册函数
-void registerUser() {
+bool registerUser() {
+    system("cls");
     std::fstream file("users.txt", std::ios::in | std::ios::out | std::ios::app);
     if (!file.is_open()) {
         std::cerr << "无法打开文件 users.txt" << std::endl;
         exit(EXIT_FAILURE);
     }
-
-    User newUser;
-    std::cout << "请输入用户名: ";
-    std::cin >> newUser.username;
-
-    User currentUser;
-    bool usernameExists = false;
-    while (file >> currentUser.username >> currentUser.password) {
-        if (currentUser.username == newUser.username) {
-            std::cout << "用户名已存在，请换个名字:" << std::endl;
+    while (true)
+    {
+        
+        try
+        {
+            User newUser;
+            std::cout << "请输入用户名(" << maxLength_username << "位以内): ";
             std::cin >> newUser.username;
+            if (newUser.username.length() > maxLength_username)
+            {
+                throw(std::length_error)("用户名长度超过限制");
+            }
+
+            User currentUser;
+            bool usernameExists = false;
+            while (file >> currentUser.username >> currentUser.password) {
+                if (currentUser.username == newUser.username) {
+                    std::cout << "用户名已存在，请换个名字:" << std::endl;
+                    std::cin >> newUser.username;
+                    file.clear(); // 清除文件流的错误状态
+                    file.seekg(0, std::ios::beg); // 将文件读取指针重新定位到文件的开头
+                    usernameExists = true;
+                    break;
+                }
+            }
             file.clear(); // 清除文件流的错误状态
             file.seekg(0, std::ios::beg); // 将文件读取指针重新定位到文件的开头
-            usernameExists = true;
-            break;
+            if (!usernameExists) {
+                std::cout << "请输入密码: ";
+                std::cin >> newUser.password;
+
+                // 将写入指针定位到文件开头，以便在文件开头写入新的用户名和密码
+                file.seekp(0, std::ios::beg);
+
+                file << newUser.username << " " << newUser.password << " " << "0" << std::endl;
+                std::cout << "注册成功！" << std::endl;
+                file.close();
+                return 1;
+            }
+
+
+        }
+        catch (const std::length_error& e)
+        {
+            std::cerr << "错误: " << e.what() << std::endl;
+            std::cout << "1.再试一次   2.返回" << std::endl;
+            int judge_regist = -1;
+            while (true)
+            {
+                std::cin >> judge_regist;
+                switch (judge_regist)
+                {
+                case 1:
+                    system("cls");
+                    break;
+                case 2:
+                    return false;
+                }
+            }
         }
     }
-    file.clear(); // 清除文件流的错误状态
-    file.seekg(0, std::ios::beg); // 将文件读取指针重新定位到文件的开头
-    if (!usernameExists) {
-        std::cout << "请输入密码: ";
-        std::cin >> newUser.password;
 
-        // 将写入指针定位到文件开头，以便在文件开头写入新的用户名和密码
-        file.seekp(0, std::ios::beg);
-
-        file << newUser.username << " " << newUser.password << " " << "0"<<std::endl;
-        std::cout << "注册成功！" << std::endl;
-    }
-
-    file.close();
 }
 
 // 登录函数
@@ -64,13 +96,13 @@ int loginUser() {
     std::cout << " ┃                                          ┃";
     Sleep(30);
     SetCursorPosition(9, 13);
-    std::cout << " ┃         用户名：                         ┃";
+    std::cout << " ┃        用户名：                          ┃";
     Sleep(30);
     SetCursorPosition(9, 14);
     std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
     Sleep(30);
     SetCursorPosition(9, 15);
-    std::cout << " ┃         密码：                            ┃";
+    std::cout << " ┃         密码：                           ┃";
     Sleep(30);
     SetCursorPosition(9, 16);
     std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
@@ -109,7 +141,7 @@ int loginUser() {
     }
     if (judge_find == 1)
     {
-        SetCursorPosition(17.5, 15);
+        SetCursorPosition(18, 15);
         std::cin >> player.password;
         if (currentUser.password == player.password) {
             system("cls");
@@ -238,23 +270,108 @@ int ui_after_enter()
     }
 }
 //VIP-CDK
-//int cdk_dh()
-//{
-//    system("cls");
-//    std:: string cdk_input;
-//    while (1)
-//    {
-//        try {
-//            std::cout << "请输入5位CDK:";
-//            std::cin >> cdk_input;
-//            if (cdk_input.length() > maxLength) {
-//                throw -1("String length exceeds maximum allowed length.");
-//            }
-//        }
-//        catch(-1){
-//
-//        }
-//    }
-//    
-//
-//}
+int cdk_dh()
+{
+    system("cls");
+    bool found = false;
+    std::string cdk_input;
+    std::string cdk;
+    std::list<std::string> cdk_all;
+    std::fstream file("cdk.txt", std::ios::in | std::ios::out);
+    if (!file.is_open()) {
+        std::cerr << "无法打开文件 users.txt" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    while (true)
+    {
+        try
+        {
+            std::cout << "请输入5位CDK:";
+            std::cin >> cdk_input;
+            if (cdk_input.length() > maxLength_CDK)
+            {
+                throw std::length_error("CDK长度超过限制5位");
+            }
+            
+            while (file >> cdk)
+            {
+                cdk_all.push_back(cdk);
+                if (cdk == cdk_input)
+                {
+                    found = true;
+                    cdk_all.remove(cdk);
+                }
+            }
+            /**************************/
+            //将用过的CDK删除后写回文件
+            std::ofstream file("cdk.txt");
+            for (auto& cdk : cdk_all)
+            {
+                file << cdk << std::endl;
+            }
+            if (found)
+            {
+                //写入账户txt
+                std::fstream file("users.txt", std::ios::in | std::ios::out);
+                if (!file.is_open()) {
+                    std::cerr << "无法打开文件 users.txt" << std::endl;
+                    exit(EXIT_FAILURE);
+                }
+                User* head = nullptr;
+                User currentUser;
+                while (file >> currentUser.username >> currentUser.password >> currentUser.vipjudge) {
+                    if (player.username == currentUser.username) {
+                        currentUser.vipjudge = 1;
+                    }
+                    User* newUser = new User{ currentUser.username, currentUser.password, currentUser.vipjudge,nullptr };
+                    newUser->next = head;
+                    head = newUser;
+                }
+            
+
+                file.close();
+
+                // 写回文件
+                std::ofstream file_("users.txt");
+                if (!file_.is_open()) {
+                    std::cerr << "无法打开文件 users.txt" << std::endl;
+                    exit(EXIT_FAILURE);
+                }
+
+                User* current = head;
+                while (current != nullptr) {
+                    file_ << current->username << " " << current->password << " " << current->vipjudge << std::endl;
+                    User* temp = current;
+                    current = current->next;
+                    delete temp; // 释放链表节点的内存
+                }
+                file_.close();
+
+                std::cout << "恭喜您成为尊贵的贪吃会员！" << std:: endl;
+                std::cout << "按任意键继续" << std::endl;
+                system("pause");
+                return 1;
+            }
+            else
+            {
+                std::cout << "CDK错误！" << std::endl;
+                std::cout << "1.重新输入\n2.返回" << std::endl;
+                int judge_cdk = -1;
+                std::cin >> judge_cdk;
+                switch (judge_cdk)
+                {
+                case 1:
+                    continue;
+                case 2:
+                    return 2;
+                }
+
+            }
+        }
+        catch (const std::length_error& e)
+        {
+            std::cerr << "错误: " << e.what() << std::endl;
+        }
+    }
+
+}

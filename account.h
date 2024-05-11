@@ -10,7 +10,7 @@ struct User {
     User* next;
 };
 
-void registerUser();
+bool registerUser();
 int loginUser();
 int changePassword();
 int ui_after_enter();

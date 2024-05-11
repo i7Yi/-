@@ -258,7 +258,10 @@ bool Controller::enter_interface()
     }
     else if (tmp_key == 2)
     {
-        registerUser();
+        if (!registerUser())
+        {
+            return false;
+        }
     }
     else if (tmp_key == 3)
     {
@@ -304,25 +307,25 @@ void Controller::Select()//选择界面
 {
     /*初始化界面选项*/
     SetColor(3);
-    SetCursorPosition(13, 26);
+    SetCursorPosition(13, 16);
     std::cout << "                          ";
-    SetCursorPosition(13, 27);
+    SetCursorPosition(13, 17);
     std::cout << "                          ";
-    SetCursorPosition(6, 21);
+    SetCursorPosition(6, 11);
     std::cout << "请选择游戏难度：";
-    SetCursorPosition(6, 22);
+    SetCursorPosition(6, 12);
     std::cout << "(上下键选择,回车确认)";
-    SetCursorPosition(27, 22);
+    SetCursorPosition(27, 12);
     SetBackColor();//第一个选项设置背景色以表示当前选中
     std::cout << "简单模式";
-    SetCursorPosition(27, 24);
+    SetCursorPosition(27, 14);
     SetColor(3);
     std::cout << "普通模式";
-    SetCursorPosition(27, 26);
+    SetCursorPosition(27, 16);
     std::cout << "困难模式";
-    SetCursorPosition(27, 28);
+    SetCursorPosition(27, 18);
     std::cout << "炼狱模式";
-    SetCursorPosition(0, 31);
+    SetCursorPosition(0, 21);
     score = 0;
 
     /*上下方向键选择模块*/
@@ -339,33 +342,33 @@ void Controller::Select()//选择界面
                 switch (key)
                 {
                 case 2:
-                    SetCursorPosition(27, 22);//给待选中项设置背景色
+                    SetCursorPosition(27, 12);//给待选中项设置背景色
                     SetBackColor();
                     std::cout << "简单模式";
 
-                    SetCursorPosition(27, 24);//将已选中项取消我背景色
+                    SetCursorPosition(27, 14);//将已选中项取消我背景色
                     SetColor(3);
                     std::cout << "普通模式";
 
                     --key;
                     break;
                 case 3:
-                    SetCursorPosition(27, 24);
+                    SetCursorPosition(27, 14);
                     SetBackColor();
                     std::cout << "普通模式";
 
-                    SetCursorPosition(27, 26);
+                    SetCursorPosition(27, 16);
                     SetColor(3);
                     std::cout << "困难模式";
 
                     --key;
                     break;
                 case 4:
-                    SetCursorPosition(27, 26);
+                    SetCursorPosition(27, 16);
                     SetBackColor();
                     std::cout << "困难模式";
 
-                    SetCursorPosition(27, 28);
+                    SetCursorPosition(27, 18);
                     SetColor(3);
                     std::cout << "炼狱模式";
 
@@ -381,30 +384,30 @@ void Controller::Select()//选择界面
                 switch (key)
                 {
                 case 1:
-                    SetCursorPosition(27, 24);
+                    SetCursorPosition(27, 14);
                     SetBackColor();
                     std::cout << "普通模式";
-                    SetCursorPosition(27, 22);
+                    SetCursorPosition(27, 12);
                     SetColor(3);
                     std::cout << "简单模式";
 
                     ++key;
                     break;
                 case 2:
-                    SetCursorPosition(27, 26);
+                    SetCursorPosition(27, 16);
                     SetBackColor();
                     std::cout << "困难模式";
-                    SetCursorPosition(27, 24);
+                    SetCursorPosition(27, 14);
                     SetColor(3);
                     std::cout << "普通模式";
 
                     ++key;
                     break;
                 case 3:
-                    SetCursorPosition(27, 28);
+                    SetCursorPosition(27, 18);
                     SetBackColor();
                     std::cout << "炼狱模式";
-                    SetCursorPosition(27, 26);
+                    SetCursorPosition(27, 16);
                     SetColor(3);
                     std::cout << "困难模式";
 
@@ -456,13 +459,13 @@ void Controller::DrawGame()//绘制游戏界面
 
     /*绘制侧边栏*/
     SetColor(3);
-    SetCursorPosition(44, 1);
+    SetCursorPosition(34, 1);
     std::cout << "Greedy Snake";
-    SetCursorPosition(45, 2);
+    SetCursorPosition(35, 2);
     std::cout << "贪吃蛇";
-    SetCursorPosition(42, 4);
+    SetCursorPosition(32, 4);
     std::cout << "难度：";
-    SetCursorPosition(47, 5);
+    SetCursorPosition(37, 5);
     switch (key)
     {
     case 1:
@@ -480,13 +483,13 @@ void Controller::DrawGame()//绘制游戏界面
     default:
         break;
     }
-    SetCursorPosition(42, 7);
+    SetCursorPosition(32, 7);
     std::cout << "得分：";
-    SetCursorPosition(48, 8);
+    SetCursorPosition(37, 8);
     std::cout << "     0";
-    SetCursorPosition(44, 13);
+    SetCursorPosition(34, 13);
     std::cout << " 方向键移动";
-    SetCursorPosition(44, 15);
+    SetCursorPosition(34, 15);
     std::cout << " ESC键暂停";
 }
 
@@ -495,7 +498,15 @@ int Controller::PlayGame()//游戏二级循环
     /*初始化蛇和食物*/
     Snake* csnake = new Snake();
     /*判断是否为vip蛇*/
-    csnake = new SnakeVIP();
+    if (player.vipjudge == 1)
+    {
+        csnake = new SnakeVIP();
+    }
+    else
+    {
+        csnake = new Snake();
+    }
+    
     Food* cfood = new Food();
     SetColor(6);
     csnake->InitSnake();
@@ -579,7 +590,7 @@ void Controller::UpdateScore(const int& tmp)//更新分数
 void Controller::RewriteScore()//重绘分数
 {
     /*为保持分数尾部对齐，将最大分数设置为6位，计算当前分数位数，将剩余位数用空格补全，再输出分数*/
-    SetCursorPosition(48, 8);
+    SetCursorPosition(38, 8);
     SetColor(11);
     int bit = 0;
     int tmp = score;
@@ -725,16 +736,26 @@ void Controller::Game()//游戏一级循环
         }
 
     }
-      int judge_after_enter = ui_after_enter();
-      if (judge_after_enter == 1)
-      {
-
-      }
-      else if (judge_after_enter == 2)
-      {
-            /**********/
-            //CDK兑换接口
-      }
+    while (true)
+    {
+        int judge_after_enter = ui_after_enter();
+        if (judge_after_enter == 1)
+        {
+            break;
+        }
+        else if (judge_after_enter == 2)
+        {
+            if (cdk_dh() == 1)
+            {
+                player.vipjudge = 1;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+      
 
 
     while (true)//游戏可视为一个死循环，直到退出游戏时循环结束
