@@ -9,3 +9,4 @@
 #include <conio.h>
 #include <cstdio>
 #include <list>
+#include <algorithm>

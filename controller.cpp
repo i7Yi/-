@@ -9,7 +9,7 @@
 #include "snake.h"
 #include "food.h"
 #include "account.h"
-
+#include "rank.h"
 
 User player;
 void Controller::Start()//开始界面
@@ -293,6 +293,15 @@ bool Controller::enter_interface()
                 return false;
             }
         }
+    }
+    else if (tmp_key == 4)
+    {
+        system("cls");
+        Rank temrank;
+        temrank.SortRank();
+        temrank.PrintRank();
+        system("pause");
+        return false;
     }
     else if (tmp_key == 5)
     {
@@ -725,64 +734,73 @@ void Controller::Game()//游戏一级循环
     Start();//开始界面
     while (true)
     {
-        int judge_enter = enter_interface();
-        if (judge_enter)
+        while (true)
         {
-            break;
-        }
-        else
-        {
-            continue;
-        }
-
-    }
-    while (true)
-    {
-        int judge_after_enter = ui_after_enter();
-        if (judge_after_enter == 1)
-        {
-            break;
-        }
-        else if (judge_after_enter == 2)
-        {
-            if (cdk_dh() == 1)
+            int judge_enter = enter_interface();
+            if (judge_enter)
             {
-                player.vipjudge = 1;
+                break;
             }
             else
             {
                 continue;
             }
+
         }
-    }
-      
+        while (true)
+        {
+            int judge_after_enter = ui_after_enter();
+            if (judge_after_enter == 1)
+            {
+                break;
+            }
+            else if (judge_after_enter == 2)
+            {
+                if (cdk_dh() == 1)
+                {
+                    player.vipjudge = 1;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
 
 
-    while (true)//游戏可视为一个死循环，直到退出游戏时循环结束
-    {
-        Select();//选择界面
-        DrawGame();//绘制游戏界面
-        int tmp = PlayGame();//开启游戏循环，当重新开始或退出游戏时，结束循环并返回值给tmp
-        if (tmp == 1) //返回值为1时重新开始游戏
+
+        while (true)//游戏可视为一个死循环，直到退出游戏时循环结束
         {
-            system("cls");
-            continue;
-        }
-        else if (tmp == 2) //返回值为2时退出游戏
-        {
-            break;
-        }
-        else
-        {
-            printf("无效指令!");
-            Sleep(1000);
-            break;
+            Select();//选择界面
+            DrawGame();//绘制游戏界面
+            int tmp = PlayGame();//开启游戏循环，当重新开始或退出游戏时，结束循环并返回值给tmp
+            if (tmp == 1) //返回值为1时重新开始游戏
+            {
+                system("cls");
+                continue;
+            }
+            else if (tmp == 2) //返回值为2时退出游戏
+            {
+                break;
+            }
+            else
+            {
+                printf("无效指令!");
+                Sleep(1000);
+                break;
+            }
         }
     }
+    
 }
 
 int Controller::GameOver()//游戏结束界面
 {
+    /*分数同步至排行榜*/
+    User_Rank temuser(player, score);
+    Rank temrank;
+    temrank.AddRank(temuser);
+    temrank.SaveRank();
     /*绘制游戏结束界面*/
     Sleep(500);
     SetColor(11);

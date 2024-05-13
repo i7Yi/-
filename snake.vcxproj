@@ -136,6 +136,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="point.cpp" />
+    <ClCompile Include="rank.cpp" />
     <ClCompile Include="snake.cpp" />
     <ClCompile Include="startinterface.cpp" />
     <ClCompile Include="tools.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="food.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="point.h" />
+    <ClInclude Include="rank.h" />
     <ClInclude Include="snake.h" />
     <ClInclude Include="startinterface.h" />
     <ClInclude Include="tools.h" />

@@ -14,16 +14,31 @@ bool registerUser() {
     }
     while (true)
     {
-        
-        try
-        {
             User newUser;
-            std::cout << "请输入用户名(" << maxLength_username << "位以内): ";
-            std::cin >> newUser.username;
-            if (newUser.username.length() > maxLength_username)
+            int judge_regist = -1;
+            while (true)
             {
-                throw(std::length_error)("用户名长度超过限制");
+                std::cout << "请输入用户名(" << maxLength_username << "位以内): ";
+                std::cin >> newUser.username;
+                if (newUser.username.length() > maxLength_username)
+                {
+                    std::cout << "用户名长度超过限制" << std::endl;
+                    std::cout << "1.再试一次    2.返回" << std::endl;
+                }
+                else
+                {
+                    break;
+                }
+                std::cin >> judge_regist;
+                switch (judge_regist)
+                {
+                case 1:
+                    continue;
+                case 2:
+                    return false;
+                }
             }
+            
 
             User currentUser;
             bool usernameExists = false;
@@ -45,33 +60,14 @@ bool registerUser() {
 
                 // 将写入指针定位到文件开头，以便在文件开头写入新的用户名和密码
                 file.seekp(0, std::ios::beg);
-
+                player = newUser;
                 file << newUser.username << " " << newUser.password << " " << "0" << std::endl;
                 std::cout << "注册成功！" << std::endl;
                 file.close();
                 return 1;
             }
 
-
-        }
-        catch (const std::length_error& e)
-        {
-            std::cerr << "错误: " << e.what() << std::endl;
-            std::cout << "1.再试一次   2.返回" << std::endl;
-            int judge_regist = -1;
-            while (true)
-            {
-                std::cin >> judge_regist;
-                switch (judge_regist)
-                {
-                case 1:
-                    system("cls");
-                    break;
-                case 2:
-                    return false;
-                }
-            }
-        }
+        
     }
 
 }
@@ -145,6 +141,7 @@ int loginUser() {
         std::cin >> player.password;
         if (currentUser.password == player.password) {
             system("cls");
+            player = currentUser;
             std::cout << "用户" << " " << currentUser.username << " " << "登录成功！" << std::endl;
             file.close();
             return 0;
@@ -171,6 +168,7 @@ int loginUser() {
     }
     else
     {
+        SetCursorPosition(17, 18);
         std::cout << "用户名不存在！" << std::endl;
         Sleep(1000);
         system("cls");
