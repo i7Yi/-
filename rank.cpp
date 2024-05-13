@@ -1,4 +1,5 @@
 #include "rank.h"
+#include "tools.h"
 User_Rank::User_Rank(User& other, int a) {
 	username = other.username;
 	score = a;
@@ -45,7 +46,63 @@ void Rank::SortRank() {
 }
 
 void Rank::PrintRank() {
-	for (int i = 0; i < crank.size(); i++) {
+    system("cls");
+    SetColor(11);
+    SetCursorPosition(10, 8);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    Sleep(30);
+    SetCursorPosition(9, 9);
+    std::cout << " ┃                  排行榜                  ┃";
+    Sleep(30);
+    SetCursorPosition(9, 10);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 11);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 12);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 13);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 14);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 15);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 16);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 17);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 18);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 19);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 20);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 21);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 22);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 23);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 24);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(10, 25);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+	for (int i = 0; i < crank.size()&&i<10; i++) {
+        SetCursorPosition(18, 11+i);
 		std::cout << crank[i].GetName() << "   " << crank[i].GetScore() << std::endl;
 	}
 }

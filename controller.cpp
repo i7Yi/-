@@ -249,6 +249,7 @@ bool Controller::enter_interface()
         catch (int error) {
             if (error == -114514)
             {
+                SetCursorPosition(14, 20);
                 std::cout << "没有用户！请先注册！" << std::endl;
                 Sleep(1000);
                 return false;
@@ -258,9 +259,23 @@ bool Controller::enter_interface()
     }
     else if (tmp_key == 2)
     {
-        if (!registerUser())
+        system("cls");
+        int judge = -1;;
+        while (true)
         {
-            return false;
+            judge = registerUser();
+            if (judge == 1)
+            {
+                return false;
+            }
+            else if (judge == 2)
+            {
+                continue;
+            }
+            else if (judge == 3)
+            {
+
+            }
         }
     }
     else if (tmp_key == 3)
@@ -300,6 +315,7 @@ bool Controller::enter_interface()
         Rank temrank;
         temrank.SortRank();
         temrank.PrintRank();
+        SetCursorPosition(12, 24);
         system("pause");
         return false;
     }

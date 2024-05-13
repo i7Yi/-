@@ -5,82 +5,325 @@
 #define maxLength_username 8//用户名最大长度
 extern User player;
 // 注册函数
-bool registerUser() {
+int registerUser() {
     system("cls");
-    std::fstream file("users.txt", std::ios::in | std::ios::out | std::ios::app);
-    if (!file.is_open()) {
-        std::cerr << "无法打开文件 users.txt" << std::endl;
-        exit(EXIT_FAILURE);
-    }
     while (true)
     {
-            User newUser;
-            int judge_regist = -1;
-            while (true)
-            {
-                std::cout << "请输入用户名(" << maxLength_username << "位以内): ";
-                std::cin >> newUser.username;
-                if (newUser.username.length() > maxLength_username)
-                {
-                    std::cout << "用户名长度超过限制" << std::endl;
-                    std::cout << "1.再试一次    2.返回" << std::endl;
-                }
-                else
-                {
-                    break;
-                }
-                std::cin >> judge_regist;
-                switch (judge_regist)
-                {
-                case 1:
-                    continue;
-                case 2:
-                    return false;
-                }
-            }
-            
+        system("cls");
+        SetColor(11);
+        SetCursorPosition(10, 8);
+        std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+        Sleep(30);
+        SetCursorPosition(9, 9);
+        std::cout << " ┃                  注册                    ┃";
+        Sleep(30);
+        SetCursorPosition(9, 10);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 11);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 12);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 13);
+        std::cout << " ┃        用户名：                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 14);
+        std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
+        Sleep(30);
+        SetCursorPosition(9, 15);
+        std::cout << " ┃         密码：                           ┃";
+        Sleep(30);
+        SetCursorPosition(9, 16);
+        std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
+        Sleep(30);
+        SetCursorPosition(9, 17);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 18);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(10, 19);
+        std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+        std::fstream file_regist("users.txt",std::ios::in|std::ios::out|std::ios::app);
+        if (!file_regist.is_open()) {
+            SetCursorPosition(14, 18);
+            std::cerr << "无法打开文件 users.txt" << std::endl;
+            exit(EXIT_FAILURE);
+        }
 
-            User currentUser;
-            bool usernameExists = false;
-            while (file >> currentUser.username >> currentUser.password) {
-                if (currentUser.username == newUser.username) {
-                    std::cout << "用户名已存在，请换个名字:" << std::endl;
-                    std::cin >> newUser.username;
-                    file.clear(); // 清除文件流的错误状态
-                    file.seekg(0, std::ios::beg); // 将文件读取指针重新定位到文件的开头
-                    usernameExists = true;
-                    break;
-                }
-            }
-            file.clear(); // 清除文件流的错误状态
-            file.seekg(0, std::ios::beg); // 将文件读取指针重新定位到文件的开头
-            if (!usernameExists) {
-                std::cout << "请输入密码: ";
-                std::cin >> newUser.password;
+        User newUser;
 
-                // 将写入指针定位到文件开头，以便在文件开头写入新的用户名和密码
-                file.seekp(0, std::ios::beg);
-                player = newUser;
-                file << newUser.username << " " << newUser.password << " " << "0" << std::endl;
-                std::cout << "注册成功！" << std::endl;
-                file.close();
-                return 1;
+        SetCursorPosition(14, 11);
+        std::cout << "请输入" << maxLength_username << "位以内用户名 ";
+        SetCursorPosition(18.5, 13);
+        std::cin >> newUser.username;
+        if (newUser.username.length() > maxLength_username)
+        {
+             SetCursorPosition(16, 18);
+             std::cout << "用户名超出限制" << std::endl;
+             Sleep(1000);
+             return 2;
+         }
+        User currentUser;
+        bool usernameExists = false;
+        while (file_regist >> currentUser.username >> currentUser.password>>currentUser.vipjudge) {
+            if (currentUser.username == newUser.username) {
+                 SetCursorPosition(15, 18);
+                 std::cout << "用户名已存在，请换个名字!" << std::endl;
+                 SetCursorPosition(9, 13);
+                 std::cout << " ┃        用户名：                          ┃";
+                 SetCursorPosition(18.5, 13);
+                 std::cin >> newUser.username;
+                 file_regist.seekg(0, std::ios::beg); // 将文件读取指针重新定位到文件的开头
+                 usernameExists = true;
             }
+        }
+        SetCursorPosition(9, 18);
+        std::cout << " ┃                                          ┃";
+            SetCursorPosition(10, 11);
+            std::cout << "                                         ";
+            SetCursorPosition(14, 11);
+            std::cout << "请输入密码: ";
+            SetCursorPosition(18, 15);
+            std::cin >> newUser.password;
+
+            file_regist.close();
+            std::fstream file_save("users.txt", std::ios::app);
+            usernameExists = true;
+            player = newUser;
+            file_save << newUser.username << " " << newUser.password << " " << "0" << std::endl;
+            SetCursorPosition(10, 11);
+            std::cout << "                                           ";
+            SetCursorPosition(14, 11);
+            std::cout << "注册成功！" << std::endl;
+            file_save.close();
+            return 1;
+
 
         
     }
+    
 
 }
 
 // 登录函数
 int loginUser() {
-    system("cls");
+    while (true)
+    {
+        system("cls");
+        SetColor(11);
+        SetCursorPosition(10, 8);
+        std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+        Sleep(30);
+        SetCursorPosition(9, 9);
+        std::cout << " ┃                  登录                    ┃";
+        Sleep(30);
+        SetCursorPosition(9, 10);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 11);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 12);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 13);
+        std::cout << " ┃        用户名：                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 14);
+        std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
+        Sleep(30);
+        SetCursorPosition(9, 15);
+        std::cout << " ┃         密码：                           ┃";
+        Sleep(30);
+        SetCursorPosition(9, 16);
+        std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
+        Sleep(30);
+        SetCursorPosition(9, 17);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(9, 18);
+        std::cout << " ┃                                          ┃";
+        Sleep(30);
+        SetCursorPosition(10, 19);
+        std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+
+        std::ifstream file("users.txt", std::ios::in);
+        if (!file.is_open()) {
+            SetCursorPosition(14, 18);
+            std::cerr << "无法打开文件 users.txt" << std::endl;
+            throw(-114514);
+        }
+        file.seekg(0, std::ios::end); // 将文件读取指针定位到文件末尾
+        std::streampos fileSize = file.tellg(); // 获取文件读取指针的当前位置（即文件大小）
+        file.seekg(0, std::ios::beg); // 将文件读取指针重新定位到文件开头
+        if (fileSize == 0)
+        {
+            throw(-114514);
+        }
+        SetCursorPosition(18.5, 13);
+
+       
+        /*限制输入位数*/
+        std::string temname;
+        while (true)
+        {
+            std::cin >> temname;
+            if (temname.size() > maxLength_username)
+            {
+                SetCursorPosition(18.5, 18);
+                std::cout << "用户名超出限制";
+                Sleep(1000);
+                return 1;
+            }
+            else
+            {
+                break;
+            }
+        }
+        player.username = temname;
+        User currentUser;
+        int judge_find = -1;
+        while (file >> currentUser.username >> currentUser.password >> currentUser.vipjudge) {
+            if (currentUser.username == player.username)
+            {
+                judge_find = 1;
+                break;
+            }
+        }
+        if (judge_find == 1)
+        {
+            SetCursorPosition(18, 15);
+            std::cin >> player.password;
+            if (currentUser.password == player.password) {
+                system("cls");
+                player = currentUser;
+                file.close();
+                return 0;
+            }
+            file.close();
+            system("cls");
+            SetColor(11);
+            SetCursorPosition(10, 8);
+            std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+            Sleep(30);
+            SetCursorPosition(9, 9);
+            std::cout << " ┃                  登录                    ┃";
+            Sleep(30);
+            SetCursorPosition(9, 10);
+            std::cout << " ┃                                          ┃";
+            Sleep(30);
+            SetCursorPosition(9, 11);
+            std::cout << " ┃                                          ┃";
+            Sleep(30);
+            SetCursorPosition(9, 12);
+            std::cout << " ┃            用户名或密码错误!             ┃";
+            Sleep(30);
+            SetCursorPosition(9, 13);
+            std::cout << " ┃                                          ┃";
+            Sleep(30);
+            SetCursorPosition(9, 14);
+            std::cout << " ┃                重新输入                  ┃";
+            Sleep(30);
+            SetCursorPosition(9, 15);
+            std::cout << " ┃                  返回                    ┃";
+            Sleep(30);
+            SetCursorPosition(9, 16);
+            std::cout << " ┃                                          ┃";
+            Sleep(30);
+            SetCursorPosition(9, 17);
+            std::cout << " ┃                                          ┃";
+            Sleep(30);
+            SetCursorPosition(9, 18);
+            std::cout << " ┃                                          ┃";
+            Sleep(30);
+            SetCursorPosition(10, 19);
+            std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+
+            SetCursorPosition(18, 14);
+            SetBackColor();
+            std::cout << "重新输入";
+            SetCursorPosition(19, 15);
+            SetColor(11);
+            std::cout << "返回";
+
+            int ch;
+            int tem_key = 1;
+            bool flag = false;
+            while (ch=_getch())
+            {
+                switch (ch)
+                {
+                case 72://UP
+                {
+                    if (tem_key > 1)
+                    {
+                        SetCursorPosition(18, 14);
+                        SetBackColor();
+                        std::cout << "重新输入";
+                        SetCursorPosition(19, 15);
+                        SetColor(11);
+                        std::cout << "返回";
+                        --tem_key;
+                    }
+                    break;
+                }
+                case 80://DOWN
+                {
+                    if (tem_key < 2)
+                    {
+                        SetCursorPosition(18, 14);
+                        SetColor(11);
+                        std::cout << "重新输入";
+                        SetCursorPosition(19, 15);
+                        SetBackColor();
+                        std::cout << "返回";
+                        ++tem_key;
+                    }
+                    break;
+                }
+                case 13://Enter
+                {
+                    SetColor(11);
+                    flag = true;
+                    break;
+                }
+                }
+                if (flag)
+                {
+                    break;
+                }
+            }
+            if (tem_key == 1)
+            {
+                return 1;
+            }
+            else if (tem_key == 2)
+            {
+                return 2;
+            }
+        }
+        else
+        {
+            SetCursorPosition(17, 18);
+            std::cout << "用户名不存在！" << std::endl;
+            Sleep(1000);
+            system("cls");
+            return 1;
+        }
+    }
+}
+
+// 修改密码函数
+int changePassword() {
     SetColor(11);
     SetCursorPosition(10, 8);
     std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
     Sleep(30);
     SetCursorPosition(9, 9);
-    std::cout << " ┃                  登录                    ┃";
+    std::cout << " ┃                 修改密码                 ┃";
     Sleep(30);
     SetCursorPosition(9, 10);
     std::cout << " ┃                                          ┃";
@@ -89,22 +332,22 @@ int loginUser() {
     std::cout << " ┃                                          ┃";
     Sleep(30);
     SetCursorPosition(9, 12);
-    std::cout << " ┃                                          ┃";
-    Sleep(30);
-    SetCursorPosition(9, 13);
     std::cout << " ┃        用户名：                          ┃";
     Sleep(30);
-    SetCursorPosition(9, 14);
+    SetCursorPosition(9, 13);
     std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
+    Sleep(30);
+    SetCursorPosition(9, 14);
+    std::cout << " ┃        旧密码：                          ┃";
     Sleep(30);
     SetCursorPosition(9, 15);
-    std::cout << " ┃         密码：                           ┃";
-    Sleep(30);
-    SetCursorPosition(9, 16);
     std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
     Sleep(30);
+    SetCursorPosition(9, 16);
+    std::cout << " ┃        新密码：                          ┃";
+    Sleep(30);
     SetCursorPosition(9, 17);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                ¯¯¯¯¯¯¯¯¯¯¯               ┃";
     Sleep(30);
     SetCursorPosition(9, 18);
     std::cout << " ┃                                          ┃";
@@ -112,72 +355,11 @@ int loginUser() {
     SetCursorPosition(10, 19);
     std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
 
-    std::ifstream file("users.txt", std::ios::in);
-    if (!file.is_open()) {
-        std::cerr << "无法打开文件 users.txt" << std::endl;
-        throw(-114514);
-    }
-    file.seekg(0, std::ios::end); // 将文件读取指针定位到文件末尾
-    std::streampos fileSize = file.tellg(); // 获取文件读取指针的当前位置（即文件大小）
-    file.seekg(0, std::ios::beg); // 将文件读取指针重新定位到文件开头
-    if (fileSize == 0)
-    {
-        throw(-114514);
-    }
-    SetCursorPosition(18.5, 13);
-    std::cin >> player.username;
-    User currentUser;
-    int judge_find = -1;
-    while (file >> currentUser.username >> currentUser.password >> currentUser.vipjudge) {
-        if (currentUser.username == player.username)
-        {
-            judge_find = 1;
-            break;
-        }
-    }
-    if (judge_find == 1)
-    {
-        SetCursorPosition(18, 15);
-        std::cin >> player.password;
-        if (currentUser.password == player.password) {
-            system("cls");
-            player = currentUser;
-            std::cout << "用户" << " " << currentUser.username << " " << "登录成功！" << std::endl;
-            file.close();
-            return 0;
-        }
-        file.close();
-        std::cout << "用户名或密码错误!" << std::endl;
-        int judge_login = 0;
-        while (1)
-        {
-            std::cout << "1.重新输入 2.返回" << std::endl;
-            std::cin >> judge_login;
-            switch (judge_login)
-            {
-            case 1:
-                return 1;
-            case 2:
-                return 2;
-            default:
-                std::cout << "无效指令，请重新输入！" << std::endl;
-                Sleep(1000);
-                system("cls");
-            }
-        }
-    }
-    else
-    {
-        SetCursorPosition(17, 18);
-        std::cout << "用户名不存在！" << std::endl;
-        Sleep(1000);
-        system("cls");
-        return 1;
-    }
-}
 
-// 修改密码函数
-int changePassword() {
+
+
+
+
     std::fstream file("users.txt", std::ios::in | std::ios::out);
     if (!file.is_open()) {
         std::cerr << "无法打开文件 users.txt" << std::endl;
@@ -186,22 +368,29 @@ int changePassword() {
 
     User* head = nullptr;
     int judge_find = -1;
-    std::cout << "请输入用户名: ";
+    //输入用户名
+    SetCursorPosition(18.5, 12);
     std::cin >> player.username;
 
     User currentUser;
     while (file >> currentUser.username >> currentUser.password>>currentUser.vipjudge) {
         if (player.username == currentUser.username) {
             judge_find = 1;
-            std::cout << "请输入旧密码: ";
+            //输入旧密码
+            SetCursorPosition(18.5, 14);
             std::cin >> player.password;
             if (currentUser.password != player.password) {
+                SetCursorPosition(18.5, 18);
                 std::cout << "密码错误！" << std::endl;
                 file.close();
+                Sleep(1000);
+                system("cls");
                 return 1;
             }
-
-            std::cout << "请输入新密码: ";
+            SetCursorPosition(18.5, 18);
+            std::cout << "密码匹配成功！" << std::endl;
+            //输入新密码
+            SetCursorPosition(18.5, 16);
             std::cin >> player.password;
             currentUser.password = player.password;
         }
@@ -211,8 +400,11 @@ int changePassword() {
     }
 
     if (judge_find == -1) {
+        SetCursorPosition(18.5, 18);
         std::cout << "用户名不存在！" << std::endl;
         file.close();
+        Sleep(1000);
+        system("cls");
         return 1;
     }
 
@@ -233,7 +425,7 @@ int changePassword() {
         delete temp; // 释放链表节点的内存
     }
     file_.close();
-
+    SetCursorPosition(18.5, 18);
     std::cout << "密码修改成功！" << std::endl;
     Sleep(1000); // 暂停1秒
     return 2;
@@ -242,29 +434,123 @@ int changePassword() {
 int ui_after_enter()
 {
     system("cls");
+    SetColor(11);
+    SetCursorPosition(10, 8);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    Sleep(30);
+    SetCursorPosition(9, 9);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 10);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 11);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 12);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 13);
+    std::cout << " ┃                开始游戏                  ┃";
+    Sleep(30);
+    SetCursorPosition(9, 14);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 15);
+    std::cout << " ┃                CDK兑换                   ┃";
+    Sleep(30);
+    SetCursorPosition(9, 16);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 17);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(9, 18);
+    std::cout << " ┃                                          ┃";
+    Sleep(30);
+    SetCursorPosition(10, 19);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    SetCursorPosition(18, 13);
+    SetBackColor();
+    std::cout << "开始游戏";
+    SetCursorPosition(18, 15);
+    SetColor(11);
+    std::cout << "CDK兑换";
+
     if (player.vipjudge == 1)
     {
+        SetCursorPosition(14, 9);
         std::cout << "尊贵的VIP ";
     }
     else
     {
+        SetCursorPosition(15, 9);
         std::cout << "普通用户 ";
     }
+    SetCursorPosition(19, 9);
     std::cout << player.username << " 登陆成功！" << std::endl;
-    std::cout << "1.开始游戏\n2.CDK兑换\n";
-    int judge_after_enter = -1;
-    while(1)
+
+    /*选择部分*/
+    int ch;
+    int tem_key = 1;
+    bool flag = false;
+    while (ch = _getch())
     {
-        std::cin >> judge_after_enter;
-        switch (judge_after_enter)
+        switch (ch)
         {
-        case 1:
-            return 1;
-        case 2:
-            return 2;
-        default:
-            std::cout << "无效指令！请重新输入";
+        case 72://UP
+        {
+            if (tem_key == 2)
+            {
+                SetCursorPosition(18, 13);
+                SetBackColor();
+                std::cout << "开始游戏";
+                SetCursorPosition(18, 15);
+                SetColor(11);
+                std::cout << "CDK兑换";
+                --tem_key;
+            }
+            break;
         }
+        case 80://DOWN
+        {
+            if (tem_key == 1)
+            {
+                SetCursorPosition(18, 13);
+                SetColor(11);
+                std::cout << "开始游戏";
+                SetCursorPosition(18, 15);
+                SetBackColor();
+                std::cout << "CDK兑换";
+                ++tem_key;
+            }
+            break;
+        }
+        case 13://Enter
+        {
+            flag = true;
+            break;
+        }
+        default:
+            break;
+        }
+
+        if (flag)
+        {
+            SetColor(11);
+            break;
+        }
+    }
+
+    if (tem_key == 1)
+    {
+        system("cls");
+        return 1;
+    }
+    else if (tem_key == 2)
+    {
+        system("cls");
+        return 2;
     }
 }
 //VIP-CDK
@@ -275,40 +561,43 @@ int cdk_dh()
     std::string cdk_input;
     std::string cdk;
     std::list<std::string> cdk_all;
-    std::fstream file("cdk.txt", std::ios::in | std::ios::out);
+    std::fstream file("cdk.txt",std::ios::in);
     if (!file.is_open()) {
-        std::cerr << "无法打开文件 users.txt" << std::endl;
+        std::cerr << "无法打开文件 cdk.txt" << std::endl;
         exit(EXIT_FAILURE);
+    }
+    while (file >> cdk)
+    {
+        cdk_all.push_back(cdk);
     }
     while (true)
     {
-        try
-        {
             std::cout << "请输入5位CDK:";
             std::cin >> cdk_input;
-            if (cdk_input.length() > maxLength_CDK)
+            if (cdk_input.length() != maxLength_CDK)
             {
-                throw std::length_error("CDK长度超过限制5位");
+                std::cout << "请输入正确长度的CDK" << std::endl;
+                Sleep(1000);
+                continue;
             }
-            
-            while (file >> cdk)
+            auto it = std::find(cdk_all.begin(), cdk_all.end(), cdk_input);
+            if (it != cdk_all.end())
             {
-                cdk_all.push_back(cdk);
-                if (cdk == cdk_input)
-                {
-                    found = true;
-                    cdk_all.remove(cdk);
-                }
+                found = true;
+                cdk_all.remove(cdk_input);
             }
-            /**************************/
-            //将用过的CDK删除后写回文件
-            std::ofstream file("cdk.txt");
-            for (auto& cdk : cdk_all)
-            {
-                file << cdk << std::endl;
-            }
+
+
             if (found)
             {
+                /**************************/
+                //将用过的CDK删除后写回文件
+                std::ofstream file_cdk("cdk.txt");
+                for (auto& cdk : cdk_all)
+                {
+                    file_cdk << cdk << std::endl;
+                }
+
                 //写入账户txt
                 std::fstream file("users.txt", std::ios::in | std::ios::out);
                 if (!file.is_open()) {
@@ -365,11 +654,5 @@ int cdk_dh()
                 }
 
             }
-        }
-        catch (const std::length_error& e)
-        {
-            std::cerr << "错误: " << e.what() << std::endl;
-        }
     }
-
 }
