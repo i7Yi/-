@@ -3,7 +3,7 @@
 #include "tools.h"
 #include <iostream>
 
-void Snake::InitSnake()//åˆå§‹åŒ–è›‡
+void Snake::InitSnake()//³õÊ¼»¯Éß
 {
     for (auto& point : snake)
     {
@@ -11,7 +11,7 @@ void Snake::InitSnake()//åˆå§‹åŒ–è›‡
     }
 }
 
-void Snake::Move()//è›‡å¢é•¿
+void Snake::Move()//ÉßÔö³¤
 {
     switch (direction)
     {
@@ -34,14 +34,14 @@ void Snake::Move()//è›‡å¢é•¿
     snake.back().PrintCircular();
 }
 
-void Snake::NormalMove()//è›‡æ­£å¸¸ç§»åŠ¨ï¼Œå¤´å¢é•¿ï¼Œå°¾ç¼©çŸ­
+void Snake::NormalMove()//ÉßÕı³£ÒÆ¶¯£¬Í·Ôö³¤£¬Î²Ëõ¶Ì
 {
     Move();
     snake.front().Clear();
     snake.pop_front();
 }
 
-bool Snake::OverEdge()//è¶…å‡ºè¾¹ç•Œ
+bool Snake::OverEdge()//³¬³ö±ß½ç
 {
     return snake.back().GetX() < 29 &&
         snake.back().GetY() < 29 &&
@@ -49,11 +49,11 @@ bool Snake::OverEdge()//è¶…å‡ºè¾¹ç•Œ
         snake.back().GetY() > 1;
 }
 
-bool Snake::HitItself()//æ’åˆ°è‡ªèº«
+bool Snake::HitItself()//×²µ½×ÔÉí
 {
     std::deque<Point>::size_type cnt = 1;
-    Point* head = new Point(snake.back().GetX(), snake.back().GetY());//è·å¾—å¤´éƒ¨åæ ‡
-    for (auto& point : snake) //å¦‚æœæ•´æ¡è›‡ä¸­ä¸è›‡å¤´ä¸ç›¸åŒçš„åæ ‡ä¸ç­‰äºè›‡é•¿ï¼Œåˆ™æ„å‘³ç€è›‡å¤´ç¢°æ’åˆ°è‡ªèº«
+    Point* head = new Point(snake.back().GetX(), snake.back().GetY());//»ñµÃÍ·²¿×ø±ê
+    for (auto& point : snake) //Èç¹ûÕûÌõÉßÖĞÓëÉßÍ·²»ÏàÍ¬µÄ×ø±ê²»µÈÓÚÉß³¤£¬ÔòÒâÎ¶×ÅÉßÍ·Åö×²µ½×ÔÉí
     {
         if (!(point == *head))
             ++cnt;
@@ -67,10 +67,10 @@ bool Snake::HitItself()//æ’åˆ°è‡ªèº«
         return false;
 }
 
-bool Snake::ChangeDirection()//æ”¹å˜æ–¹å‘
+bool Snake::ChangeDirection()//¸Ä±ä·½Ïò
 {
     char ch;
-    if (_kbhit())//_kbhitå‡½æ•°è¿”å›å€¼ä¸ºä¸¤ä¸ªï¼Œéœ€æ³¨æ„
+    if (_kbhit())//_kbhitº¯Êı·µ»ØÖµÎªÁ½¸ö£¬Ğè×¢Òâ
     {
         ch = _getch();
         switch (ch)
@@ -80,7 +80,7 @@ bool Snake::ChangeDirection()//æ”¹å˜æ–¹å‘
             switch (ch)
             {
             case 72:
-                if (direction != Direction::DOWN)//å¦‚æœæ–¹å‘ä¸å½“å‰è¿åŠ¨æ–¹å‘ç›¸åï¼Œæ— æ•ˆ
+                if (direction != Direction::DOWN)//Èç¹û·½ÏòÓëµ±Ç°ÔË¶¯·½ÏòÏà·´£¬ÎŞĞ§
                     direction = Direction::UP;
                 break;
             case 80:
@@ -125,8 +125,8 @@ bool Snake::GetBigFood(Food& cfood)
     if (snake.back().GetX() == cfood.big_x && snake.back().GetY() == cfood.big_y)
     {
         SetCursorPosition(cfood.big_x, cfood.big_y);
-        std::cout << "  ";//æ­¤å¤„è¦å¼¥è¡¥è´ªåƒè›‡å°‘æ‰çš„ä¸€éƒ¨åˆ†
-        std::cout << "\b\bâ—";
+        std::cout << "  ";//´Ë´¦ÒªÃÖ²¹Ì°³ÔÉßÉÙµôµÄÒ»²¿·Ö
+        std::cout << "\b\b¡ñ";
         cfood.big_flag = false;
         cfood.big_x = 0;
         cfood.big_y = 0;
@@ -139,7 +139,7 @@ bool Snake::GetBigFood(Food& cfood)
 }
 
 int cnt = 1;
-void SnakeVIP::Move()//è›‡å¢é•¿
+void SnakeVIP::Move()//ÉßÔö³¤
 {
     switch (direction)
     {
@@ -162,4 +162,16 @@ void SnakeVIP::Move()//è›‡å¢é•¿
     cnt++;
     SetColor(cnt);
     snake.back().PrintCircular();
+}
+bool Snake::CheckMap(Map& cmap)
+{
+    Point a = snake.back();
+    for (auto& point : (cmap.initmap))
+    {
+        if (a.GetX() == point.GetX() && a.GetY() == point.GetY())
+        {
+            return false;
+        }
+    }
+    return true;
 }

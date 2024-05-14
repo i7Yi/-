@@ -3,10 +3,12 @@
 #include <cstdlib>
 #include <iostream>
 
-void Food::DrawFood(Snake& csnake)//ç»˜åˆ¶é£Ÿç‰©
+void Food::DrawFood(Snake& csnake, int choice)//»æÖÆÊ³Îï
 {
-    /*åˆ©ç”¨randå‡½æ•°è·å¾—åæ ‡ï¼Œå¹¶å°†å…¶èŒƒå›´é™åˆ¶åœ¨2-29å†…ï¼Œå³åœ¨åœ°å›¾å†…ï¼Œå¦‚æœè·å¾—çš„åæ ‡ä¸è›‡èº«é‡å ï¼Œåˆ™é‡æ–°è·å–ã€‚
-      åŒæ—¶æ¯5é¢—é£Ÿç‰©å°±å‡ºç°ä¸€é¢—é™æ—¶é£Ÿç‰©*/
+    /*ÀûÓÃrandº¯Êı»ñµÃ×ø±ê£¬²¢½«Æä·¶Î§ÏŞÖÆÔÚ2-29ÄÚ£¬¼´ÔÚµØÍ¼ÄÚ£¬Èç¹û»ñµÃµÄ×ø±êÓëÉßÉíÖØµş£¬ÔòÖØĞÂ»ñÈ¡¡£
+      Í¬Ê±Ã¿5¿ÅÊ³Îï¾Í³öÏÖÒ»¿ÅÏŞÊ±Ê³Îï*/
+    Map* cmap = new Map(choice);
+
     while (true)
     {
         int tmp_x = rand() % 29;
@@ -21,29 +23,36 @@ void Food::DrawFood(Snake& csnake)//ç»˜åˆ¶é£Ÿç‰©
                 break;
             }
         }
+        if (!FoodCheckMap(tmp_x, tmp_y, *cmap))
+        {
+            flag = true;
+        }
+
         if (flag)
             continue;
         x = tmp_x;
         y = tmp_y;
         SetCursorPosition(x, y);
         SetColor(13);
-        std::cout << "â˜…";
+        std::cout << "¡ï";
         ++cnt;
         cnt %= 3;
         if (cnt == 0)
         {
-            DrawBigFood(csnake);
+            DrawBigFood(csnake, choice);
         }
         break;
     }
+    delete cmap;
 }
 
-void Food::DrawBigFood(Snake& csnake)//ç»˜åˆ¶é™æ—¶é£Ÿç‰©
+void Food::DrawBigFood(Snake& csnake, int choice)//»æÖÆÏŞÊ±Ê³Îï
 {
     SetCursorPosition(5, 0);
     SetColor(11);
-    std::cout << "------------------------------------------";//è¿›åº¦æ¡
+    std::cout << "------------------------------------------";//½ø¶ÈÌõ
     progress_bar = 42;
+    Map* cmap = new Map(choice);
     while (true)
     {
         int tmp_x = rand() % 29;
@@ -59,6 +68,10 @@ void Food::DrawBigFood(Snake& csnake)//ç»˜åˆ¶é™æ—¶é£Ÿç‰©
                 break;
             }
         }
+        if (!BigFoodCheckMap(tmp_x, tmp_y, *cmap))
+        {
+            flag = true;
+        }
         if (flag)
             continue;
 
@@ -66,11 +79,12 @@ void Food::DrawBigFood(Snake& csnake)//ç»˜åˆ¶é™æ—¶é£Ÿç‰©
         big_y = tmp_y;
         SetCursorPosition(big_x, big_y);
         SetColor(18);
-        std::cout << "â– ";
+        std::cout << "¡ö";
         big_flag = true;
         flash_flag = true;
         break;
     }
+    delete cmap;
 }
 
 int Food::GetCnt()
@@ -78,7 +92,7 @@ int Food::GetCnt()
     return cnt;
 }
 
-void Food::FlashBigFood()//é—ªçƒé™æ—¶é£Ÿç‰©
+void Food::FlashBigFood()//ÉÁË¸ÏŞÊ±Ê³Îï
 {
     SetCursorPosition(big_x, big_y);
     SetColor(18);
@@ -89,13 +103,13 @@ void Food::FlashBigFood()//é—ªçƒé™æ—¶é£Ÿç‰©
     }
     else
     {
-        std::cout << "â– ";
+        std::cout << "¡ö";
         flash_flag = true;
     }
 
     SetCursorPosition(26, 0);
     SetColor(11);
-    for (int i = 42; i >= progress_bar; --i)//è¿›åº¦æ¡ç¼©çŸ­
+    for (int i = 42; i >= progress_bar; --i)//½ø¶ÈÌõËõ¶Ì
         std::cout << "\b \b";
     --progress_bar;
     if (progress_bar == 0) {
@@ -115,4 +129,26 @@ bool Food::GetBigFlag()
 int Food::GetProgressBar()
 {
     return progress_bar;
+}
+bool Food::FoodCheckMap(int tx, int ty, Map& cmap)
+{
+    for (auto& point : cmap.initmap)
+    {
+        if (tx == point.GetX() && ty == point.GetY())
+        {
+            return false;
+        }
+    }
+    return true;
+}
+bool Food::BigFoodCheckMap(int tx, int ty, Map& cmap)
+{
+    for (auto& point : cmap.initmap)
+    {
+        if (tx == point.GetX() && ty == point.GetY())
+        {
+            return false;
+        }
+    }
+    return true;
 }

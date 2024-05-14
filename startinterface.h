@@ -83,8 +83,8 @@ public:
     void ClearText();
     void Action();
 private:
-    std::deque<Point> startsnake;//å¼€å§‹åŠ¨ç”»ä¸­çš„è›‡
-    std::vector<Point> textsnake;//å¼€å§‹åŠ¨ç”»ä¸­çš„æ–‡å­—
-    int speed;//åŠ¨ç”»çš„é€Ÿåº¦
+    std::deque<Point> startsnake;//¿ªÊ¼¶¯»­ÖĞµÄÉß
+    std::vector<Point> textsnake;//¿ªÊ¼¶¯»­ÖĞµÄÎÄ×Ö
+    int speed;//¶¯»­µÄËÙ¶È
 };
 #endif // STRATINTERFACE_H

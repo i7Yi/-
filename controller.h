@@ -8,8 +8,8 @@ public:
     bool enter_interface();
     void Start();
     void Select();
-    void DrawGame();
-    int PlayGame();
+    void DrawGame(int);
+    int PlayGame(int);
     void UpdateScore(const int&);
     void RewriteScore();
     int Menu();
@@ -19,5 +19,6 @@ private:
     int speed;
     int key;
     int score;
+    int key_map;
 };
 #endif

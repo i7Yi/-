@@ -1,8 +1,8 @@
 #include "controller.h"
 
-int main()//ç¨‹åºå…¥å£
+int main()//³ÌĞòÈë¿Ú
 {
-    Controller c;//å£°æ˜ä¸€ä¸ªControllerç±»
-    c.Game();//æ•´ä¸ªæ¸¸æˆå¾ªç¯
+    Controller c;//ÉùÃ÷Ò»¸öControllerÀà
+    c.Game();//Õû¸öÓÎÏ·Ñ­»·
     return 0;
 }
