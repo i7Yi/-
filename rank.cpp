@@ -52,7 +52,7 @@ void Rank::PrintRank() {
     std::cout << "©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥";
     Sleep(30);
     SetCursorPosition(9, 9);
-    std::cout << " ©§                  ÅÅĞĞ°ñ                  ©§";
+    std::cout << " ©§                   ÅÅĞĞ°ñ                 ©§";
     Sleep(30);
     SetCursorPosition(9, 10);
     std::cout << " ©§                                          ©§";
@@ -102,8 +102,8 @@ void Rank::PrintRank() {
     SetCursorPosition(10, 25);
     std::cout << "©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥";
     for (int i = 0; i < crank.size() && i < 10; i++) {
-        SetCursorPosition(18, 11 + i);
-        std::cout << crank[i].GetName() << "   " << crank[i].GetScore() << std::endl;
+        SetCursorPosition(16, 11 + i);
+        std::cout << std::setw(8)<<crank[i].GetName() << "   " << crank[i].GetScore() << std::endl;
     }
 }
 

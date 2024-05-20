@@ -322,8 +322,8 @@ bool Controller::enter_interface()
     else if (tmp_key == 5)
     {
         system("cls");
-        std::cout << "Bye!";
-        Sleep(1000);
+        //std::cout << "Bye!";
+        //Sleep(1000);
         exit(0);
     }
 
@@ -520,6 +520,7 @@ void Controller::DrawGame(int choice)//绘制游戏界面
 
 int Controller::PlayGame(int choice)//游戏二级循环
 {
+
     /*初始化蛇和食物*/
     Snake* csnake = new Snake();
     /*判断是否为vip蛇*/

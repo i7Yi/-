@@ -66,6 +66,16 @@ int registerUser() {
             Sleep(1000);
             return 2;
         }
+        for (auto& ch : newUser.username)
+        {
+            if (ch > '9' || ch < '0')
+            {
+                SetCursorPosition(16, 18);
+                std::cout << "用户名存在非法字符" << std::endl;
+                Sleep(1000);
+                return 2;
+            }
+        }
         User currentUser;
         bool usernameExists = false;
         while (file_regist >> currentUser.username >> currentUser.password >> currentUser.vipjudge) {
@@ -95,14 +105,12 @@ int registerUser() {
         player = newUser;
         file_save << newUser.username << " " << newUser.password << " " << "0" << std::endl;
         SetCursorPosition(10, 11);
-        std::cout << "                                           ";
-        SetCursorPosition(14, 11);
-        std::cout << "注册成功！" << std::endl;
+        std::cout << "                                          ";
+        SetCursorPosition(18, 11);
+        std::cout << "注册成功";
+        Sleep(1000);
         file_save.close();
         return 1;
-
-
-
     }
 
 
@@ -377,11 +385,13 @@ int changePassword() {
         if (player.username == currentUser.username) {
             judge_find = 1;
             //输入旧密码
+            SetCursorPosition(18.5, 18);
+            std::cout << "请输入旧密码！" << std::endl;
             SetCursorPosition(18.5, 14);
             std::cin >> player.password;
             if (currentUser.password != player.password) {
                 SetCursorPosition(18.5, 18);
-                std::cout << "密码错误！" << std::endl;
+                std::cout << "密码错误！   " << std::endl;
                 file.close();
                 Sleep(1000);
                 system("cls");

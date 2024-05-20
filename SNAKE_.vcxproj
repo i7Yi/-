@@ -47,7 +47,6 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{99b22a85-f07b-4a73-b2aa-7574d2022246}</ProjectGuid>
     <RootNamespace>SNAKE</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
