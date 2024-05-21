@@ -8,6 +8,7 @@ struct User {
     std::string password;
     bool vipjudge;
     User* next;
+    double time;
 };
 
 int registerUser();

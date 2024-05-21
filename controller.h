@@ -15,10 +15,12 @@ public:
     int Menu();
     void Game();
     int GameOver();
+    void RewriteFoot();
 private:
     int speed;
     int key;
     int score;
+    int foot;
     int key_map;
 };
 #endif

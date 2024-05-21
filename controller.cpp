@@ -315,7 +315,7 @@ bool Controller::enter_interface()
         Rank temrank;
         temrank.SortRank();
         temrank.PrintRank();
-        SetCursorPosition(12, 24);
+        SetCursorPosition(17, 24);
         system("pause");
         return false;
     }
@@ -510,8 +510,13 @@ void Controller::DrawGame(int choice)//绘制游戏界面
     }
     SetCursorPosition(32, 7);
     std::cout << "得分：";
-    SetCursorPosition(37, 8);
-    std::cout << "     0";//零
+    SetCursorPosition(37, 7);
+    SetColor(11);
+    std::cout << "       0";//零
+    SetColor(3);
+    SetCursorPosition(32, 9);
+    std::cout << "步数：";
+    SetColor(3);
     SetCursorPosition(34, 13);
     std::cout << " 方向键移动";
     SetCursorPosition(34, 15);
@@ -523,6 +528,12 @@ int Controller::PlayGame(int choice)//游戏二级循环
 
     /*初始化蛇和食物*/
     Snake* csnake = new Snake();
+    /*初始化步数*/
+    foot = 0;
+    /*初始化开始时间*/
+    player.time = 0;
+    std::chrono::system_clock::time_point startTime = std::chrono::system_clock::now();
+    std::chrono::system_clock::time_point endTime = std::chrono::system_clock::now();
     /*判断是否为vip蛇*/
     if (player.vipjudge == 1)
     {
@@ -542,13 +553,22 @@ int Controller::PlayGame(int choice)//游戏二级循环
     /*游戏循环*/
     while (csnake->OverEdge() && csnake->HitItself() && csnake->CheckMap(*cmap)) //判断是否撞墙或撞到自身，即是否还有生命
     {
+        /*蛇步长增加*/
+        foot++;
+        RewriteFoot();//重新绘制步数
         /*调出选择菜单*/
         if (!csnake->ChangeDirection()) //按Esc键时
         {
+            /*暂停时间累加至总时间*/
+            endTime = std::chrono::system_clock::now();
+            std::chrono::duration<double> diff = endTime - startTime;
+            player.time += diff.count();
             int tmp = Menu();//绘制菜单，并得到返回值
             switch (tmp)
             {
             case 1://继续游戏
+                /*重新开始计时*/
+                startTime = std::chrono::system_clock::now();
                 break;
 
             case 2://重新开始
@@ -594,6 +614,10 @@ int Controller::PlayGame(int choice)//游戏二级循环
     }
 
     /*蛇死亡*/
+    endTime = std::chrono::system_clock::now();
+    std::chrono::duration<double> diff = endTime - startTime;
+    player.time += diff.count();
+
     delete csnake;//释放分配的内存空间
     delete cfood;
     delete cmap;
@@ -618,21 +642,22 @@ void Controller::UpdateScore(const int& tmp)//更新分数
 
 void Controller::RewriteScore()//重绘分数
 {
-    /*为保持分数尾部对齐，将最大分数设置为6位，计算当前分数位数，将剩余位数用空格补全，再输出分数*/
-    SetCursorPosition(38, 8);
+    
+    SetCursorPosition(38, 7);
     SetColor(11);
-    int bit = 0;
     int tmp = score;
-    while (tmp != 0)
-    {
-        ++bit;
-        tmp /= 10;
-    }
-    for (int i = 0; i < (6 - bit); ++i)
-    {
-        std::cout << " ";
-    }
-    std::cout << score;
+    
+    std::cout << std::setw(6) << score;
+}
+
+void Controller::RewriteFoot()//重绘步数
+{
+    /*为保持分数尾部对齐，将最大分数设置为6位，计算当前分数位数，将剩余位数用空格补全，再输出分数*/
+    SetCursorPosition(38, 9);
+    SetColor(11);
+    int tmp = foot;
+   
+    std::cout << std::setw(6) << foot;
 }
 
 int Controller::Menu()//选择菜单
@@ -964,14 +989,18 @@ int Controller::GameOver()//游戏结束界面
     Sleep(30);
     SetCursorPosition(9, 13);
     std::cout << " ┃             你的分数为：                 ┃";
-    SetCursorPosition(24, 13);
-    std::cout << score;
+    SetCursorPosition(22, 13);
+    std::cout << std::setw(6) << score;
     Sleep(30);
     SetCursorPosition(9, 14);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃             你的步数为：                 ┃";
+    SetCursorPosition(22, 14);
+    std::cout << std::setw(6) << foot;
     Sleep(30);
     SetCursorPosition(9, 15);
-    std::cout << " ┃   是否再来一局？                         ┃";
+    std::cout << " ┃             所用时间为：                 ┃";
+    SetCursorPosition(22, 15);
+    std::cout << std::setw(5) << int(player.time+0.5)<<"S";
     Sleep(30);
     SetCursorPosition(9, 16);
     std::cout << " ┃                                          ┃";
@@ -980,7 +1009,7 @@ int Controller::GameOver()//游戏结束界面
     std::cout << " ┃                                          ┃";
     Sleep(30);
     SetCursorPosition(9, 18);
-    std::cout << " ┃    嗯，好的        不了，还是学习有意思  ┃";
+    std::cout << " ┃          再来一局        学习去了        ┃";
     Sleep(30);
     SetCursorPosition(9, 19);
     std::cout << " ┃                                          ┃";
@@ -990,11 +1019,10 @@ int Controller::GameOver()//游戏结束界面
     Sleep(30);
     SetCursorPosition(10, 21);
     std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
-
     Sleep(100);
-    SetCursorPosition(12, 18);
+    SetCursorPosition(15, 18);
     SetBackColor();
-    std::cout << "嗯，好的";
+    std::cout << "再来一局";
     SetCursorPosition(0, 31);
 
     /*选择部分*/
@@ -1008,12 +1036,12 @@ int Controller::GameOver()//游戏结束界面
         case 75://LEFT
             if (tmp_key > 1)
             {
-                SetCursorPosition(12, 18);
+                SetCursorPosition(15, 18);
                 SetBackColor();
-                std::cout << "嗯，好的";
-                SetCursorPosition(20, 18);
+                std::cout << "再来一局";
+                SetCursorPosition(23, 18);
                 SetColor(11);
-                std::cout << "不了，还是学习有意思";
+                std::cout << "学习去了";
                 --tmp_key;
             }
             break;
@@ -1021,12 +1049,12 @@ int Controller::GameOver()//游戏结束界面
         case 77://RIGHT
             if (tmp_key < 2)
             {
-                SetCursorPosition(20, 18);
+                SetCursorPosition(23, 18);
                 SetBackColor();
-                std::cout << "不了，还是学习有意思";
-                SetCursorPosition(12, 18);
+                std::cout << "学习去了";
+                SetCursorPosition(15, 18);
                 SetColor(11);
-                std::cout << "嗯，好的";
+                std::cout << "再来一局";
                 ++tmp_key;
             }
             break;
