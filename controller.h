@@ -16,6 +16,7 @@ public:
     void Game();
     int GameOver();
     void RewriteFoot();
+    void introduction();
 private:
     int speed;
     int key;

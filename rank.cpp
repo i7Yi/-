@@ -97,7 +97,7 @@ void Rank::PrintRank() {
     std::cout << " ©§                                          ©§";
     Sleep(30);
     SetCursorPosition(9, 24);
-    std::cout << " ©§                                          ©§";
+    std::cout << " ©§                 °´ESC·µ»Ø               ©§";
     Sleep(30);
     SetCursorPosition(10, 25);
     std::cout << "©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥";

@@ -37,68 +37,68 @@ bool Controller::enter_interface()
     std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
     Sleep(30);
     SetCursorPosition(9, 9);
-    std::cout << " ┃                 贪吃蛇                   ┃";
+    std::cout << " ┃                 贪吃蛇                  ┃";
     Sleep(30);
     SetCursorPosition(9, 10);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                                         ┃";
     Sleep(30);
     SetCursorPosition(9, 11);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                                         ┃";
     Sleep(30);
     SetCursorPosition(9, 12);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                  登录                   ┃";
     Sleep(30);
     SetCursorPosition(9, 13);
-    std::cout << " ┃                  登录                    ┃";
+    std::cout << " ┃                                         ┃";
     Sleep(30);
     SetCursorPosition(9, 14);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                  注册                   ┃";
     Sleep(30);
     SetCursorPosition(9, 15);
-    std::cout << " ┃                  注册                    ┃";
+    std::cout << " ┃                                         ┃";
     Sleep(30);
     SetCursorPosition(9, 16);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                修改密码                 ┃";
     Sleep(30);
     SetCursorPosition(9, 17);
-    std::cout << " ┃                修改密码                  ┃";
+    std::cout << " ┃                                         ┃";
     Sleep(30);
     SetCursorPosition(9, 18);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                查看排行                 ┃";
     Sleep(30);
     SetCursorPosition(9, 19);
-    std::cout << " ┃                查看排行                  ┃";
+    std::cout << " ┃                                         ┃";
     Sleep(30);
     SetCursorPosition(9, 20);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                  说明                   ┃";
     Sleep(30);
     SetCursorPosition(9, 21);
-    std::cout << " ┃                  退出                    ┃";
+    std::cout << " ┃                                         ┃";
     Sleep(30);
     SetCursorPosition(9, 22);
-    std::cout << " ┃                                          ┃";
-    Sleep(30);
+    std::cout << " ┃                  退出                   ┃";
     SetCursorPosition(9, 23);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                                         ┃";
     Sleep(30);
     SetCursorPosition(9, 24);
-    std::cout << " ┃                                          ┃";
+    std::cout << " ┃                                         ┃";
     Sleep(30);
     SetCursorPosition(10, 25);
     std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
-
     Sleep(100);
-    SetCursorPosition(19, 13);
+    SetCursorPosition(19, 12);
     SetBackColor();
     std::cout << "登录";
-    SetCursorPosition(19, 15);
+    SetCursorPosition(19, 14);
     SetColor(11);
     std::cout << "注册";
-    SetCursorPosition(18, 17);
+    SetCursorPosition(18, 16);
     std::cout << "修改密码";
-    SetCursorPosition(18, 19);
+    SetCursorPosition(18, 18);
     std::cout << "查看排行";
-    SetCursorPosition(19, 21);
+    SetCursorPosition(19, 20);
+    std::cout << "说明";
+    SetCursorPosition(19, 22);
     std::cout << "退出";
     SetCursorPosition(0, 31);
 
@@ -106,7 +106,7 @@ bool Controller::enter_interface()
     int ch;
     int tmp_key = 1;
     bool flag = false;
-    while ((ch = _getch())) {//改进
+    while ((ch = _getch())) {
         switch (ch) {
         case 72://UP
         {
@@ -115,10 +115,10 @@ bool Controller::enter_interface()
                 {
                 case 2:
                 {
-                    SetCursorPosition(19, 13);
+                    SetCursorPosition(19, 12);
                     SetBackColor();
                     std::cout << "登录";
-                    SetCursorPosition(19, 15);
+                    SetCursorPosition(19, 14);
                     SetColor(11);
                     std::cout << "注册";
                     --tmp_key;
@@ -126,10 +126,10 @@ bool Controller::enter_interface()
                 }
                 case 3:
                 {
-                    SetCursorPosition(19, 15);
+                    SetCursorPosition(19, 14);
                     SetBackColor();
                     std::cout << "注册";
-                    SetCursorPosition(18, 17);
+                    SetCursorPosition(18, 16);
                     SetColor(11);
                     std::cout << "修改密码";
                     --tmp_key;
@@ -137,10 +137,10 @@ bool Controller::enter_interface()
                 }
                 case 4:
                 {
-                    SetCursorPosition(18, 17);
+                    SetCursorPosition(18, 16);
                     SetBackColor();
                     std::cout << "修改密码";
-                    SetCursorPosition(18, 19);
+                    SetCursorPosition(18, 18);
                     SetColor(11);
                     std::cout << "查看排行";
                     --tmp_key;
@@ -148,10 +148,21 @@ bool Controller::enter_interface()
                 }
                 case 5:
                 {
-                    SetCursorPosition(18, 19);
+                    SetCursorPosition(18, 18);
                     SetBackColor();
                     std::cout << "查看排行";
-                    SetCursorPosition(19, 21);
+                    SetCursorPosition(19, 20);
+                    SetColor(11);
+                    std::cout << "说明";
+                    --tmp_key;
+                    break;
+                }
+                case 6:
+                {
+                    SetCursorPosition(19, 20);
+                    SetBackColor();
+                    std::cout << "说明";
+                    SetCursorPosition(19, 22);
                     SetColor(11);
                     std::cout << "退出";
                     --tmp_key;
@@ -163,49 +174,58 @@ bool Controller::enter_interface()
         break;
         case 80://DOWN
         {
-            if (tmp_key < 5) {
+            if (tmp_key < 6) {
                 switch (tmp_key) {
                 case 1:
-                    SetCursorPosition(19, 15);
+                    SetCursorPosition(19, 14);
                     SetBackColor();
                     std::cout << "注册";
-                    SetCursorPosition(19, 13);
+                    SetCursorPosition(19, 12);
                     SetColor(11);
                     std::cout << "登录";
                     ++tmp_key;
                     break;
 
                 case 2:
-                    SetCursorPosition(18, 17);
+                    SetCursorPosition(18, 16);
                     SetBackColor();
                     std::cout << "修改密码";
-                    SetCursorPosition(19, 15);
+                    SetCursorPosition(19, 14);
                     SetColor(11);
                     std::cout << "注册";
                     ++tmp_key;
                     break;
 
                 case 3:
-                    SetCursorPosition(18, 19);
+                    SetCursorPosition(18, 18);
                     SetBackColor();
                     std::cout << "查看排行";
-                    SetCursorPosition(18, 17);
+                    SetCursorPosition(18, 16);
                     SetColor(11);
                     std::cout << "修改密码";
                     ++tmp_key;
                     break;
 
                 case 4:
-                    SetCursorPosition(19, 21);
+                    SetCursorPosition(19, 20);
                     SetBackColor();
-                    std::cout << "退出";
-                    SetCursorPosition(18, 19);
+                    std::cout << "说明";
+                    SetCursorPosition(18, 18);
                     SetColor(11);
                     std::cout << "查看排行";
                     ++tmp_key;
                     break;
-                }
 
+                case 5:
+                    SetCursorPosition(19, 22);
+                    SetBackColor();
+                    std::cout << "退出";
+                    SetCursorPosition(19, 20);
+                    SetColor(11);
+                    std::cout << "说明";
+                    ++tmp_key;
+                    break;
+                }
             }
         }
         break;
@@ -222,6 +242,7 @@ bool Controller::enter_interface()
         }
 
     }
+
 
 
     if (tmp_key == 1)
@@ -315,11 +336,17 @@ bool Controller::enter_interface()
         Rank temrank;
         temrank.SortRank();
         temrank.PrintRank();
-        SetCursorPosition(17, 24);
-        system("pause");
+        while (_getch() != 27);
         return false;
     }
     else if (tmp_key == 5)
+    {
+        system("cls");
+        introduction();
+        while (_getch() != 27);
+        return false;
+    }
+    else if (tmp_key == 6)
     {
         system("cls");
         //std::cout << "Bye!";
@@ -328,6 +355,53 @@ bool Controller::enter_interface()
     }
 
 }
+
+void Controller::introduction()
+{
+
+    system("cls");
+    SetColor(11);
+    SetCursorPosition(10, 8);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    Sleep(30);
+    SetCursorPosition(9, 9);
+    std::cout << " ┃                 游戏说明                ┃";
+    Sleep(30);
+    SetCursorPosition(9, 10);
+    std::cout << " ┃                                         ┃";
+    Sleep(30);
+    SetCursorPosition(9, 11);
+    std::cout << " ┃                                         ┃";
+    Sleep(30);
+    SetCursorPosition(9, 12);
+    std::cout << " ┃        欢迎来到贪吃蛇游戏!本游戏        ┃";
+    Sleep(30);
+    SetCursorPosition(9, 13);
+    std::cout << " ┃        提供了丰富的功能,包括用户        ┃";
+    Sleep(30);
+    SetCursorPosition(9, 14);
+    std::cout << " ┃        用户登录和注册、VIP系统、        ┃";
+    Sleep(30);
+    SetCursorPosition(9, 15);
+    std::cout << " ┃        多样化的地图风格以及排行         ┃";
+    Sleep(30);
+    SetCursorPosition(9, 16);
+    std::cout << " ┃        榜功能                           ┃";
+    Sleep(30);
+    SetCursorPosition(9, 17);
+    std::cout << " ┃                                         ┃";
+    Sleep(30);
+    SetCursorPosition(9, 18);
+    std::cout << " ┃                                         ┃";
+    Sleep(30);
+    SetCursorPosition(9, 19);
+    std::cout << " ┃               按ESC返回                 ┃";
+    Sleep(30);
+    SetCursorPosition(10, 20);
+    std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+
+}
+
 void Controller::Select()//选择界面
 {
     /*初始化界面选项*/
@@ -642,11 +716,11 @@ void Controller::UpdateScore(const int& tmp)//更新分数
 
 void Controller::RewriteScore()//重绘分数
 {
-    
+
     SetCursorPosition(38, 7);
     SetColor(11);
     int tmp = score;
-    
+
     std::cout << std::setw(6) << score;
 }
 
@@ -656,7 +730,7 @@ void Controller::RewriteFoot()//重绘步数
     SetCursorPosition(38, 9);
     SetColor(11);
     int tmp = foot;
-   
+
     std::cout << std::setw(6) << foot;
 }
 
@@ -1000,7 +1074,7 @@ int Controller::GameOver()//游戏结束界面
     SetCursorPosition(9, 15);
     std::cout << " ┃             所用时间为：                 ┃";
     SetCursorPosition(22, 15);
-    std::cout << std::setw(5) << int(player.time+0.5)<<"S";
+    std::cout << std::setw(5) << int(player.time + 0.5) << "S";
     Sleep(30);
     SetCursorPosition(9, 16);
     std::cout << " ┃                                          ┃";
