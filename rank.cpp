@@ -97,7 +97,7 @@ void Rank::PrintRank() {
     std::cout << " ┃                                          ┃";
     Sleep(30);
     SetCursorPosition(9, 24);
-    std::cout << " ┃                 按ESC返回               ┃";
+    std::cout << " ┃                 按ESC返回                ┃";
     Sleep(30);
     SetCursorPosition(10, 25);
     std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";

@@ -1,3 +1,5 @@
+asdfgh 123 0
+asdfg asdfg 0
 123 123 1
 fyk 123 0
 wzf 123 1
@@ -10,3 +12,13 @@ wzf 123 1
 12321 1231312 0
 23432432 24242 0
 2432423 2342 0
+12312 12312321 0
+1234123 123421 0
+asdas sada 0
+apple apple 0
+banana banana 0
+pear pear 0
+abc abc 0
+asd asd 0
+qwe qwe 0
+zxc ccc 0

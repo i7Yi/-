@@ -57,8 +57,24 @@ int registerUser() {
 
         SetCursorPosition(14, 11);
         std::cout << "请输入" << maxLength_username << "位以内用户名 ";
+        
+        char c;
         SetCursorPosition(18.5, 13);
-        std::cin >> newUser.username;
+        while (1)
+        {
+            c = getchar();
+            if (c == 10)
+            {
+                SetCursorPosition(18.5, 13);
+                if (newUser.username.size() == 0)
+                {
+                    continue;
+                }
+                else break;
+            }
+            newUser.username += c;
+
+        }
         if (newUser.username.length() > maxLength_username)
         {
             SetCursorPosition(16, 18);
@@ -68,7 +84,7 @@ int registerUser() {
         }
         for (auto& ch : newUser.username)
         {
-            if (ch > '9' || ch < '0')
+            if ( !((ch>='0'&&ch<='9') || (ch >= 'a' && ch <= 'z') || (ch>='A'&&ch<='Z')))
             {
                 SetCursorPosition(16, 18);
                 std::cout << "用户名存在非法字符" << std::endl;
@@ -97,7 +113,22 @@ int registerUser() {
         SetCursorPosition(14, 11);
         std::cout << "请输入密码: ";
         SetCursorPosition(18, 15);
-        std::cin >> newUser.password;
+        while (1)
+        {
+            c = getchar();
+
+            if (c == 10)
+            {
+                if (newUser.password.size() == 0)
+                {
+                    SetCursorPosition(18, 15);
+                    continue;
+                }
+                else break;
+            }
+            newUser.password += c;
+
+        }
 
         file_regist.close();
         std::fstream file_save("users.txt", std::ios::app);
@@ -178,7 +209,23 @@ int loginUser() {
         std::string temname;
         while (true)
         {
-            std::cin >> temname;
+            char c;
+            while (1)
+            {
+                c = getchar();
+                if (c == 10)
+                {
+                    SetCursorPosition(18.5, 13);
+                    if (temname.size() == 0)
+                    {
+                        continue;
+                    }
+                    else break;
+                }
+                temname += c;
+
+            }
+
             if (temname.size() > maxLength_username)
             {
                 SetCursorPosition(18.5, 18);
@@ -203,8 +250,27 @@ int loginUser() {
         }
         if (judge_find == 1)
         {
+            /*输入密码*/
+            player.password = "";
+
+            char c;
             SetCursorPosition(18, 15);
-            std::cin >> player.password;
+            while (1)
+            {
+                c = getchar();
+                
+                if (c == 10)
+                {   
+                    if (player.password.size() == 0)
+                    {
+                        SetCursorPosition(18, 15);
+                        continue;
+                    }
+                    else break;
+                }
+                player.password += c;
+
+            }
             if (currentUser.password == player.password) {
                 system("cls");
                 player = currentUser;
@@ -377,18 +443,53 @@ int changePassword() {
     User* head = nullptr;
     int judge_find = -1;
     //输入用户名
-    SetCursorPosition(18.5, 12);
-    std::cin >> player.username;
+    player.username = "";
+
+    char c;
+    SetCursorPosition(18, 12);
+    while (1)
+    {
+        c = getchar();
+
+        if (c == 10)
+        {
+            if (player.username.size() == 0)
+            {
+                SetCursorPosition(18, 12);
+                continue;
+            }
+            else break;
+        }
+        player.username += c;
+
+    }
 
     User currentUser;
     while (file >> currentUser.username >> currentUser.password >> currentUser.vipjudge) {
         if (player.username == currentUser.username) {
             judge_find = 1;
             //输入旧密码
+            player.password = "";
+
             SetCursorPosition(18.5, 18);
             std::cout << "请输入旧密码！" << std::endl;
-            SetCursorPosition(18.5, 14);
-            std::cin >> player.password;
+            SetCursorPosition(18, 14);
+            while (1)
+            {
+                c = getchar();
+
+                if (c == 10)
+                {
+                    if (player.password.size() == 0)
+                    {
+                        SetCursorPosition(18, 14);
+                        continue;
+                    }
+                    else break;
+                }
+                player.password += c;
+
+            }
             if (currentUser.password != player.password) {
                 SetCursorPosition(18.5, 18);
                 std::cout << "密码错误！   " << std::endl;
@@ -400,8 +501,25 @@ int changePassword() {
             SetCursorPosition(18.5, 18);
             std::cout << "密码匹配成功！" << std::endl;
             //输入新密码
-            SetCursorPosition(18.5, 16);
-            std::cin >> player.password;
+            player.password = "";
+
+            SetCursorPosition(18, 16);
+            while (1)
+            {
+                c = getchar();
+
+                if (c == 10)
+                {
+                    if (player.password.size() == 0)
+                    {
+                        SetCursorPosition(18, 16);
+                        continue;
+                    }
+                    else break;
+                }
+                player.password += c;
+
+            }
             currentUser.password = player.password;
         }
         User* newUser = new User{ currentUser.username, currentUser.password, currentUser.vipjudge,nullptr };
