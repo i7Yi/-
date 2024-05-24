@@ -18,7 +18,7 @@ public:
         direction = Direction::DOWN;
     }
     void InitSnake();
-    virtual void Move();
+    virtual void Move();//多态性体现
     void NormalMove();
     bool OverEdge();
     bool HitItself();
@@ -31,7 +31,7 @@ protected:
     Direction direction;
     friend class Food;//将Food类置为友元，以便访问其私有元素
 };
-class SnakeVIP :public Snake
+class SnakeVIP :public Snake//继承体现
 {
     void Move();
 };

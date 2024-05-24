@@ -16,7 +16,7 @@ void Controller::Start()//开始界面
 {
     SetWindowSize(55, 40);//设置窗口大小
     CONSOLE_CURSOR_INFO cursor_info = { 1, 0 };
-    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);//光标可见性
     SetColor(2);//设置开始动画颜色
     StartInterface* start = new StartInterface();//动态分配一个StartInterface类start
     start->Action();//开始动画
@@ -267,6 +267,7 @@ bool Controller::enter_interface()
                 }
             }
         }
+        //异常处理catch
         catch (int error) {
             if (error == -114514)
             {
@@ -1074,7 +1075,7 @@ int Controller::GameOver()//游戏结束界面
     SetCursorPosition(9, 15);
     std::cout << " ┃             所用时间为：                 ┃";
     SetCursorPosition(22, 15);
-    std::cout << std::setw(5) << int(player.time + 0.5) << "S";
+    std::cout << std::setw(6) << int(player.time + 0.5);
     Sleep(30);
     SetCursorPosition(9, 16);
     std::cout << " ┃                                          ┃";

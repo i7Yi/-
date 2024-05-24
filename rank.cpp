@@ -1,5 +1,6 @@
 #include "rank.h"
 #include "tools.h"
+
 User_Rank::User_Rank(User& other, int a) {
     username = other.username;
     score = a;

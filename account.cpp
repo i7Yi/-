@@ -200,7 +200,7 @@ int loginUser() {
         file.seekg(0, std::ios::beg); // 将文件读取指针重新定位到文件开头
         if (fileSize == 0)
         {
-            throw(-114514);
+            throw(-114514); //异常处理throw
         }
         SetCursorPosition(18.5, 13);
 
@@ -550,8 +550,9 @@ int changePassword() {
         file_ << current->username << " " << current->password << " " << current->vipjudge << std::endl;
         User* temp = current;
         current = current->next;
-        delete temp; // 释放链表节点的内存
+        delete temp; // delete释放链表节点的内存
     }
+
     file_.close();
     SetCursorPosition(18.5, 18);
     std::cout << "密码修改成功！" << std::endl;
@@ -686,7 +687,6 @@ int cdk_dh()
 {
     system("cls");
     bool found = false;
-    std::string cdk_input;
     std::string cdk;
     std::list<std::string> cdk_all;
     std::fstream file("cdk.txt", std::ios::in);
@@ -739,8 +739,26 @@ int cdk_dh()
         std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
 
 
-        SetCursorPosition(18.5, 13);
-        std::cin >> cdk_input;
+        SetCursorPosition(18, 13);
+        char c;
+        std::string cdk_input;
+        while (1)
+        {
+            c = getchar();
+
+            if (c == 10)
+            {
+                if (cdk_input.size() == 0)
+                {
+                    SetCursorPosition(18, 13);
+                    continue;
+                }
+                else break;
+            }
+            cdk_input += c;
+
+        }
+
         if (cdk_input.length() != maxLength_CDK)
         {
             SetCursorPosition(15, 17);

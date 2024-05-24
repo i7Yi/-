@@ -6,7 +6,7 @@ void Map::PrintInitmap()//绘制初始地图
     for (auto& point : initmap)
     {
         point.Print();
-        Sleep(5);//调用Sleep函数可营造动画效果
+        Sleep(13);//调用Sleep函数可营造动画效果
     }
 }
 Map::Map(int choice)//用于选择地图

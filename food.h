@@ -14,6 +14,7 @@ public:
     void FlashBigFood();
     bool GetBigFlag();
     int GetProgressBar();
+
     bool FoodCheckMap(int x, int y, Map&);
     bool BigFoodCheckMap(int x, int y, Map&);
 private:

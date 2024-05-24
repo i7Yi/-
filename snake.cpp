@@ -70,7 +70,7 @@ bool Snake::HitItself()//撞到自身
 bool Snake::ChangeDirection()//改变方向
 {
     char ch;
-    if (_kbhit())//_kbhit函数返回值为两个，需注意
+    if (_kbhit())
     {
         ch = _getch();
         switch (ch)

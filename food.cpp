@@ -130,6 +130,7 @@ int Food::GetProgressBar()
 {
     return progress_bar;
 }
+
 bool Food::FoodCheckMap(int tx, int ty, Map& cmap)
 {
     for (auto& point : cmap.initmap)

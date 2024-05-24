@@ -4,6 +4,7 @@
 #include "common.h"
 #include "account.h"
 
+//¼Ì³ĞÌåÏÖ
 class User_Rank :public User {
 private:
 	int score;
